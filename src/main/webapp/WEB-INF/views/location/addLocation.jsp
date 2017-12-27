@@ -19,14 +19,13 @@
 		<form:errors path="name" /></div>
 		<div class="form-group">Description: <form:input path="description" cssClass="form-control"/>
 		<form:errors path="description" /></div>
-		<div class="form-group">Address: <form:input path="address" />
+		<div class="form-group">Address: <form:input path="address" cssClass="form-control"/>
 		<form:errors path="address" /><br /></div>
 		Location type:
 		Global:	<form:radiobutton path="global" value="true"/>
 		Remote:	<form:radiobutton path="global" value="false"/>
 		<input type="submit" class="btn btn-primary">
 		</form:form><br /> 
-		${location}
 	</div>
 	<%@include file="../jspf/foot_config.jspf"%>
 </body>

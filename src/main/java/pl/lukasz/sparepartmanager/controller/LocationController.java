@@ -57,6 +57,18 @@ public class LocationController {
 		return "redirect:/location/all";
 	}
 	
+	@GetMapping("/{id}/delete")
+	public String deleteGet(@PathVariable int id, Model m) {
+		Location location = this.locationRepo.findOne(id);
+		m.addAttribute("location", location);
+		return "location/confirm";
+	}
+	
+	@PostMapping("/{id}/delete")
+	public String deletePost(@PathVariable int id) {
+		this.locationRepo.delete(id);
+		return "redirect:/location/all";
+	}
 	
 	//Model attributes
 	@ModelAttribute("availableLocations")
