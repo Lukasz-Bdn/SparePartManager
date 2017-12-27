@@ -20,12 +20,11 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
-@ComponentScan(basePackages = { "lukasz.sparepartmanager.bean", 
-								"lukasz.sparepartmanager.controller",
-								"lukasz.sparepartmanager.entity" })
+@ComponentScan(basePackages = { "pl.lukasz.sparepartmanager.controller",
+								"p.lukasz.sparepartmanager.entity" })
 @EnableWebMvc
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = {"lukasz.sparepartmanager.repository"})
+@EnableJpaRepositories(basePackages = {"pl.lukasz.sparepartmanager.repository"})
 public class AppConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
