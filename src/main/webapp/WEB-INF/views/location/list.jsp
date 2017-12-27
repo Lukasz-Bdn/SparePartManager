@@ -12,7 +12,6 @@
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
 
-
 		<h3>List of all locations:</h3>
 		  <table class="table table-dark table-hover">
     		<thead>

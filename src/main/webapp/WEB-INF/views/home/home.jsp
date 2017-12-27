@@ -6,10 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Homepage</title>
-<%@include file="jspf/head_config.jspf"%>
+<%@include file="../jspf/head_config.jspf"%>
+<link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
-<%@include file="jspf/main_menu.jspf"%>
+<%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
 
 
@@ -17,6 +18,6 @@
 		${msg}
 
 	</div>
-<%@include file="jspf/foot_config.jspf"%>
+<%@include file="../jspf/foot_config.jspf"%>
 </body>
 </html>
