@@ -20,6 +20,7 @@
         		<th>Description</th>
         		<th>Address</th>
         		<th>Global</th>
+        		<th>Actions</th>
       		  </tr>
     		</thead>
     		<tbody>
@@ -29,6 +30,16 @@
 				<td><c:out value="${location.description}"/></td>
 				<td><c:out value="${location.address}"/></td>
 				<td><c:out value="${location.isGlobal}"/></td>
+				<td>
+				  <div class="dropdown">
+    				<button type="button" class="btn btn-primary dropdown-toggle btn-secondary" data-toggle="dropdown">
+      				Actions</button>
+    				<div class="dropdown-menu">
+      				<a class="dropdown-item" href="${location.id}/edit">Edit</a>
+      				<a class="dropdown-item" href="${location.id}/delete">Delete</a>
+    				</div>
+  				 </div>
+				</td>
 			  </tr>
 			</c:forEach>  
 			</tbody>
