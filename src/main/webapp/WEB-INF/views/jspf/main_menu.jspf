@@ -13,10 +13,10 @@
         <a class="nav-link" href="${pageContext.request.contextPath}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/user/all">List users</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/location/all">Locations</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/user/add">Add new user</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/location/addform">Add new location</a>
       </li>
       <li class="nav-item">
         <a class="nav-link"href="${pageContext.request.contextPath}/tweet/all">List tweets</a>

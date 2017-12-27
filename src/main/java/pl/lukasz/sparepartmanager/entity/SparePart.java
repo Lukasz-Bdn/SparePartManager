@@ -2,17 +2,22 @@ package pl.lukasz.sparepartmanager.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class SparePart {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private String manufacturer;
 	private String partNumber;
 	private String serialNumber;
+	@ManyToOne
+	@JoinColumn(name="location_id")
 	private Location currentLocation; //i.e location in the world
 	private int currentStatus;
 	private String currentStorageLocation; //i.e. shelf, box etc.
@@ -21,7 +26,8 @@ public class SparePart {
 		super();
 	}
 
-	public SparePart(String name, String manufacturer, String partNumber, String serialNumber, Location currentLocation,
+	public SparePart(String name, String manufacturer, String partNumber, 
+						String serialNumber, Location currentLocation,
 			int currentStatus, String currentStorageLocation) {
 		super();
 		this.name = name;
@@ -32,6 +38,8 @@ public class SparePart {
 		this.currentStatus = currentStatus;
 		this.currentStorageLocation = currentStorageLocation;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -45,7 +53,7 @@ public class SparePart {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setSpareName(String name) {
 		this.name = name;
 	}
 
@@ -77,7 +85,7 @@ public class SparePart {
 		return currentLocation;
 	}
 
-	public void setCurrentLocation(Location currentLocation) {
+	public void setCurrentLocation(Location l) {
 		this.currentLocation = currentLocation;
 	}
 
