@@ -15,13 +15,16 @@
 
 		<h3>Add new location:</h3>
 		<form:form method="post" modelAttribute="location">
-		Name: <form:input path="name" /><form:errors path="name" /><br />
-		Description: <form:input path="description" /><form:errors path="description" /><br />
-		Address: <form:input path="address" /><form:errors path="address" /><br />
+		<div class="form-group">Name: <form:input path="name" cssClass="form-control"/>
+		<form:errors path="name" /></div>
+		<div class="form-group">Description: <form:input path="description" cssClass="form-control"/>
+		<form:errors path="description" /></div>
+		<div class="form-group">Address: <form:input path="address" />
+		<form:errors path="address" /><br /></div>
 		Location type:
 		Global:	<form:radiobutton path="global" value="true"/>
 		Remote:	<form:radiobutton path="global" value="false"/>
-		<input type="submit">
+		<input type="submit" class="btn btn-primary">
 		</form:form><br /> 
 		${location}
 	</div>
