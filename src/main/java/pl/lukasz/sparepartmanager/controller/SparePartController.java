@@ -27,7 +27,7 @@ public class SparePartController {
 	
 	@GetMapping("/all")
 	public String all(Model m) {
-		return "location/list";
+		return "sparepart/list";
 	}
 	
 	@GetMapping("/addform")

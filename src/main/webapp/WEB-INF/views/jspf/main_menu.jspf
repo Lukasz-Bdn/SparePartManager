@@ -18,11 +18,18 @@
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/location/addform">Add new location</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link"href="${pageContext.request.contextPath}/tweet/all">List tweets</a>
+       <li class="nav-item">
+        <a class="nav-link" href="${pageContext.request.contextPath}/manufacturer/all">Manufacturer</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/user/search-tweets?start=Prog">Find starting with</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/manufacturer/addform">Add new manufacturer</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link"href="${pageContext.request.contextPath}/sparepart/all">Spare parts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="${pageContext.request.contextPath}/sparepart/addform">Add new spare part</a>
       </li>
     </ul>
   </div>

@@ -13,7 +13,9 @@ public class SparePart {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	private String manufacturer;
+	@ManyToOne
+	@JoinColumn(name="manufacturer_id")
+	private Manufacturer manufacturer;
 	private String partNumber;
 	private String serialNumber;
 	@ManyToOne
@@ -26,7 +28,7 @@ public class SparePart {
 		super();
 	}
 
-	public SparePart(String name, String manufacturer, String partNumber, 
+	public SparePart(String name, Manufacturer manufacturer, String partNumber, 
 						String serialNumber, Location currentLocation,
 			int currentStatus, String currentStorageLocation) {
 		super();
@@ -53,16 +55,8 @@ public class SparePart {
 		return name;
 	}
 
-	public void setSpareName(String name) {
+	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getManufacturer() {
-		return manufacturer;
-	}
-
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
 	}
 
 	public String getPartNumber() {
@@ -104,5 +98,12 @@ public class SparePart {
 	public void setCurrentStorageLocation(String currentStorageLocation) {
 		this.currentStorageLocation = currentStorageLocation;
 	}
-	
+
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
+	}	
 }
