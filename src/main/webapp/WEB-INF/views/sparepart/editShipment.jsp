@@ -36,8 +36,8 @@
 				<td><c:out value="${shipment.sparePart.name}"/></td>
 				<td><c:out value="${shipment.sparePart.partNumber}"/></td>
 				<td><c:out value="${shipment.sparePart.serialNumber}"/></td>
-				<td><c:out value="${shipment.dayDate}"/></td>
-				<td><c:out value="${shipment.dateArrived}"/></td>
+				<td><c:out value="${shipment.simpleShippedDate}"/></td>
+				<td><c:out value="${shipment.simpleArrivedDate}"/></td>
 				<td><c:out value="${shipment.trackingInfo}"/></td>
 			  </tr>
 			</tbody>

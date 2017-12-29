@@ -118,11 +118,28 @@ public class Shipment {
 		return this;
 	}
 	
-	public String getDayDate() {
-		LocalDate localDate = this.dateShipped.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	public String getSimpleShippedDate() {
+		if(this.dateShipped!=null) {
+			return getSimpleDate(this.dateShipped);
+		} else {
+			return null;
+		}
+	}
+	
+	public String getSimpleArrivedDate() {
+		if(this.dateArrived!=null) {
+			return getSimpleDate(this.dateArrived);
+		} else {
+			return null;
+		}
+	}
+
+	
+	public String getSimpleDate(Date date) {
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		int year = localDate.getYear();
 		int month = localDate.getMonthValue();
 		int day = localDate.getDayOfMonth();
-		return ""+year+"/"+month+"/"+day;
+		return day+"/"+month+"/"+year;
 	}
 }

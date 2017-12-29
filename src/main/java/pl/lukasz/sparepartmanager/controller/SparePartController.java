@@ -1,5 +1,6 @@
 package pl.lukasz.sparepartmanager.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -90,7 +91,8 @@ public class SparePartController {
 	
 	@GetMapping("global")
 	public String globalGet(Model m) {
-		List<SparePart> spareParts = this.sparePartRepo.findAllByCurrentLocationIsGlobal(true);
+		List<SparePart> loadedParts = this.sparePartRepo.findAllByCurrentLocationIsGlobal(true);
+		List<SparePart> spareParts = SparePart.selectStatus(loadedParts, "Available");
 		m.addAttribute("spareParts", spareParts);
 		return "sparepart/global";
 	}
@@ -155,6 +157,42 @@ public class SparePartController {
 		shipment = uneditedShipment.updateWith(shipment);
 		this.shipmentRepo.save(shipment);
 		return "redirect:/sparepart/shippedtolocation";
+	}
+	
+	@GetMapping("{id}/shipments/arrivedToLocation")
+	@Transactional
+	public String arrivedToLocation(@PathVariable int id) {
+		Shipment shipment = this.shipmentRepo.findOne(id);
+		shipment.setDateArrived(new Date());
+		SparePart sparePart = shipment.getSparePart();
+		sparePart.setCurrentLocation(shipment.getDestination());
+		sparePart.setCurrentStatus("Available in remote location");
+		this.shipmentRepo.save(shipment);
+		return "redirect:/sparepart/location";
+		}
+	
+	@GetMapping("location")
+	public String location(Model m) {
+		List<SparePart> spareParts = sparePartRepo.findAllByCurrentLocationIsGlobal(false);
+		spareParts = SparePart.selectStatus(spareParts, "Available in remote location");
+		m.addAttribute("spareParts", spareParts);
+		return "sparepart/location";
+	}
+	
+	@GetMapping("system")
+	public String systemGet(Model m) {
+		List<SparePart> spareParts = sparePartRepo.findAllByCurrentLocationIsGlobal(false);
+		spareParts = SparePart.selectStatus(spareParts, "In system");
+		m.addAttribute("spareParts", spareParts);
+		return "/sparepart/system";
+	}
+	
+	@GetMapping("{id}/insert")
+	public String insertGet(@PathVariable int id) {
+		SparePart sparePart = sparePartRepo.findOne(id);
+		sparePart.setCurrentStatus("In system");
+		sparePartRepo.save(sparePart);
+		return "redirect:/sparepart/system";
 	}
 	
 	//Model attributes

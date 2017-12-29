@@ -1,5 +1,8 @@
 package pl.lukasz.sparepartmanager.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -42,6 +45,16 @@ public class SparePart {
 		this.currentLocation = currentLocation;
 		this.currentStatus = currentStatus;
 		this.currentStorageLocation = currentStorageLocation;
+	}
+	
+	public static List<SparePart> selectStatus(List<SparePart> loadedParts, String status) {
+		List<SparePart> result = new ArrayList<>();
+		for(SparePart sparePart : loadedParts) {
+			if(sparePart.getCurrentStatus().equals(status)) {
+				result.add(sparePart);
+			}
+		}
+		return result;
 	}
 
 	public int getId() {
@@ -106,5 +119,5 @@ public class SparePart {
 
 	public void setManufacturer(Manufacturer manufacturer) {
 		this.manufacturer = manufacturer;
-	}	
+	}
 }
