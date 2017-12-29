@@ -13,17 +13,21 @@
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
 
-		<h3>Add new location:</h3>
+		<h3>Add new spare part:</h3>
 		<form:form method="post" modelAttribute="sparePart">
 		<div class="form-group">Name: <form:input path="name" cssClass="form-control"/>
 		<form:errors path="name" /></div>
-		<div class="form-group">Description: <form:input path="description" cssClass="form-control"/>
-		<form:errors path="description" /></div>
-		<div class="form-group">Address: <form:input path="address" cssClass="form-control"/>
-		<form:errors path="address" /><br /></div>
-		Location type:
-		Global:	<form:radiobutton path="global" value="true"/>
-		Remote:	<form:radiobutton path="global" value="false"/>
+		<div class="form-group">Manufacturer: <form:select type="text" path="manufacturer" cssClass="form-control">
+		  <form:options items="${availableManufacturers}" itemValue="id" itemLabel="name" />
+		</form:select> <form:errors path="manufacturer"/> </div>
+		<div class="form-group">Part number: <form:input path="partNumber" cssClass="form-control"/>
+		<form:errors path="partNumber" /></div>
+		<div class="form-group">Serial number: <form:input path="serialNumber" cssClass="form-control"/>
+		<form:errors path="serialNumber" /><br /></div>
+		<div class="form-group">Location (new items can be added only to global locations): 
+		  <form:select type="text" path="currentLocation" cssClass="form-control">
+		  <form:options items="${globalLocations}" itemValue="id" itemLabel="name" />
+		</form:select> <form:errors path="currentLocation"/> </div>
 		<input type="submit" class="btn btn-primary">
 		</form:form><br /> 
 	</div>

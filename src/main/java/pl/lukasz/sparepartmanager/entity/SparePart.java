@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class SparePart {
@@ -13,15 +14,17 @@ public class SparePart {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String name;
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="manufacturer_id")
 	private Manufacturer manufacturer;
 	private String partNumber;
 	private String serialNumber;
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="location_id")
 	private Location currentLocation; //i.e location in the world
-	private int currentStatus;
+	private String currentStatus = "Available";
 	private String currentStorageLocation; //i.e. shelf, box etc.
 	
 	public SparePart() {
@@ -30,7 +33,7 @@ public class SparePart {
 
 	public SparePart(String name, Manufacturer manufacturer, String partNumber, 
 						String serialNumber, Location currentLocation,
-			int currentStatus, String currentStorageLocation) {
+			String currentStatus, String currentStorageLocation) {
 		super();
 		this.name = name;
 		this.manufacturer = manufacturer;
@@ -40,8 +43,6 @@ public class SparePart {
 		this.currentStatus = currentStatus;
 		this.currentStorageLocation = currentStorageLocation;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -79,15 +80,15 @@ public class SparePart {
 		return currentLocation;
 	}
 
-	public void setCurrentLocation(Location l) {
+	public void setCurrentLocation(Location currentLocation) {
 		this.currentLocation = currentLocation;
 	}
 
-	public int getCurrentStatus() {
+	public String getCurrentStatus() {
 		return currentStatus;
 	}
 
-	public void setCurrentStatus(int currentStatus) {
+	public void setCurrentStatus(String currentStatus) {
 		this.currentStatus = currentStatus;
 	}
 

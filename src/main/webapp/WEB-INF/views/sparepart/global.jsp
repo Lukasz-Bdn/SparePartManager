@@ -28,7 +28,7 @@
       		  </tr>
     		</thead>
     		<tbody>
-		<c:forEach items="${availableSpareParts}" var="sparePart">
+		<c:forEach items="${spareParts}" var="sparePart">
 			  <tr>
 				<td><c:out value="${sparePart.name}"/></td>
 				<td><c:out value="${sparePart.manufacturer.name}"/></td>
@@ -44,6 +44,7 @@
     				<div class="dropdown-menu">
       				<a class="dropdown-item" href="${sparePart.id}/edit">Edit</a>
       				<a class="dropdown-item" href="${sparePart.id}/delete">Delete</a>
+      				<a class="dropdown-item" href="${sparePart.id}/shiptolocation">Ship to location</a>
     				</div>
   				 </div>
 				</td>

@@ -13,25 +13,30 @@
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
 
-		<h3 class="text-center">Are you sure you want to delete the following manufacturer:</h3>
+		<h3 class="text-center">Are you sure you want to cancel the following shipment 
+								and return part to global stock:</h3>
 		  <table class="table table-dark table-hover text-center">
     		<thead>
       		  <tr>
-        	    <th>Name</th>
-        		<th>Return Address</th>
-        		<th>Additional info</th>
+        	    <th>Id</th>
+        		<th>Origin</th>
+        		<th>Destination</th>
+        		<th>Part</th>
+        		<th>Tracking info</th>
       		  </tr>
     		</thead>
     		<tbody>
 			  <tr>
-				<td><c:out value="${manufacturer.name}"/></td>
-				<td><c:out value="${manufacturer.returnAddress}"/></td>
-				<td><c:out value="${manufacturer.additionalInfo}"/></td>
+				<td><c:out value="${shipment.id}"/></td>
+				<td><c:out value="${shipment.origin.name}"/></td>
+				<td><c:out value="${shipment.destination.name}"/></td>
+				<td><c:out value="${shipment.sparePart.name}"/></td>
+				<td><c:out value="${shipment.trackingInfo}"/></td>
 			  </tr>
 			</tbody>
 		  </table>
 		  <div class="text-center">
-		  	<form:form method="post" modelAttribute="manufacturer">
+		  	<form:form method="post" modelAttribute="sparePart">
 			<input type="submit" value="Yes" class="btn btn-primary btn-success btn-lg"/> 
 			<input type="button" value="No" onclick="history.back()" 
 						class="btn btn-primary btn-danger btn-lg">

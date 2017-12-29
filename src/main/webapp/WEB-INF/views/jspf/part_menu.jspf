@@ -1,0 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page session="true" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<h5>Select group of parts to display:</h5>
+<a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/all">
+All parts</a>
+<a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/global">
+Global</a>
+<a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/shippedtolocation">
+Shipped to location</a>
+<a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/location">
+Location storage</a>
+<a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/system">
+Location system</a>
+<a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/readytoship">
+Ready for shipping</a>
+<a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/shippedtoglobal">
+Shipped to global</a>
+<a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/readytoreturn">
+Shipped to global</a>
