@@ -5,20 +5,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 @Entity
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private int username;
-	private int password;
+	private String username;
+	private String password;
 	private boolean enabled;
 	
 	public User() {
 		super();
 	}
 
-	public User(int username, int password, boolean enabled) {
+	public User(String username, String password, boolean enabled) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -33,20 +35,24 @@ public class User {
 		this.id = id;
 	}
 
-	public int getUsername() {
+	public String getUsername() {
 		return username;
 	}
 
-	public void setUsername(int username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
-	public int getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(int password) {
-		this.password = password;
+	public void setPassword(String password) {
+		this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+	}
+	
+	public boolean isPasswordCorrent(String password) {
+		return BCrypt.checkpw(password, this.password);
 	}
 
 	public boolean isEnabled() {
