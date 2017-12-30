@@ -13,7 +13,8 @@
 	<div class="container">
 	<%@include file="../jspf/part_menu.jspf"%>
 	
-		<h3>List of all spare parts inserted into remote locations system:</h3>
+
+		<h3>List of all spare parts removed from remote systems:</h3>
 		  <table class="table table-dark table-hover text-center">
     		<thead>
       		  <tr>
@@ -41,7 +42,10 @@
     				<button type="button" class="btn btn-primary dropdown-toggle btn-secondary" data-toggle="dropdown">
       				Actions</button>
     				<div class="dropdown-menu">
-      				<a class="dropdown-item" href="${sparePart.id}/remove">Remove from system</a>
+      				<a class="dropdown-item" href="${sparePart.id}/tolocal">
+      					Return to local stock</a>
+      				<a class="dropdown-item" href="${sparePart.id}/toglobal">
+      					Ship to global stock</a>
     				</div>
   				 </div>
 				</td>

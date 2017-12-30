@@ -107,7 +107,7 @@ public class SparePartController {
 	
 	@PostMapping("/{id}/shiptolocation")
 	@Transactional
-	public String shipToLocationGet(@PathVariable int id, @ModelAttribute Shipment shipment, 
+	public String shipToLocationPost(@PathVariable int id, @ModelAttribute Shipment shipment, 
 									BindingResult bindingResult) {
 		SparePart sparePart = sparePartRepo.findOne(id);
 		sparePart.setCurrentStatus("Shipped to location");
@@ -193,6 +193,64 @@ public class SparePartController {
 		sparePart.setCurrentStatus("In system");
 		sparePartRepo.save(sparePart);
 		return "redirect:/sparepart/system";
+	}
+	
+	@GetMapping("{id}/remove")
+	public String removeGet(@PathVariable int id, Model m) {
+		SparePart sparePart = sparePartRepo.findOne(id);
+		m.addAttribute("sparePart", sparePart);
+		return "sparepart/confirmremove";
+	}
+	
+	@PostMapping("{id}/remove")
+	public String removePost(@PathVariable int id) {
+		SparePart sparePart = sparePartRepo.findOne(id);
+		sparePart.setCurrentStatus("Removed from system");
+		sparePartRepo.save(sparePart);
+		return "redirect:/sparepart/removed";
+	}
+	
+	@GetMapping("removed")
+	public String readyToShip(Model m) {
+		List<SparePart> spareParts = sparePartRepo.findByCurrentStatus("Removed from system");
+		m.addAttribute("spareParts", spareParts);
+		return "sparepart/removed";
+	}
+	
+	@GetMapping("{id}/tolocal")
+	public String toLocal(@PathVariable int id) {
+		SparePart sparePart = sparePartRepo.findOne(id);
+		sparePart.setCurrentStatus("Available in remote location");
+		sparePartRepo.save(sparePart);
+		return "redirect:/sparepart/removed";
+	}
+	
+	@GetMapping("/{id}/toglobal")
+	public String shipToGlobalGet(@PathVariable int id, Model m) {
+		SparePart sparePart = this.sparePartRepo.findOne(id);
+		m.addAttribute("sparePart", sparePart);
+		m.addAttribute("shipment", new Shipment());
+		return "sparepart/toglobal";
+	}
+	
+	@PostMapping("/{id}/toglobal")
+	@Transactional
+	public String shipToGlobalPost(@PathVariable int id, @ModelAttribute Shipment shipment, 
+									BindingResult bindingResult) {
+		SparePart sparePart = sparePartRepo.findOne(id);
+		sparePart.setCurrentStatus("Shipped to global");
+		shipment.setOrigin(sparePart.getCurrentLocation());
+		shipment.setSparePart(sparePart);
+		shipment.setDateShipped(new Date());
+		shipmentRepo.save(shipment);
+		return "redirect:/sparepart/shippedtoglobal";
+	}
+	
+	@GetMapping("shippedtoglobal")
+	public String shippedToGlobal(Model m) {
+		List<Shipment> shipmentsToGlobal = shipmentRepo.findAll();
+		m.addAttribute("shipmentsToGlobal", shipmentsToGlobal);
+		return "sparepart/shippedtoglobal";
 	}
 	
 	//Model attributes

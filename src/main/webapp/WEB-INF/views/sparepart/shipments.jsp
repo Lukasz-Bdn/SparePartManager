@@ -14,7 +14,7 @@
 	<%@include file="../jspf/part_menu.jspf"%>
 	
 
-		<h3>List of all shipments:</h3>
+		<h3>List of all shipments to remote locations:</h3>
 		  <table class="table table-dark table-hover text-center">
     		<thead>
       		  <tr>
@@ -24,6 +24,7 @@
         		<th>Part</th>
         		<th>Part number</th>
         		<th>Serial number</th>
+        		<th>Status</th>
         		<th>Shipped</th>
         		<th>Arrived</th>
         		<th>Tracking info</th>
@@ -38,6 +39,7 @@
 				<td><c:out value="${shipment.sparePart.name}"/></td>
 				<td><c:out value="${shipment.sparePart.partNumber}"/></td>
 				<td><c:out value="${shipment.sparePart.serialNumber}"/></td>
+				<td><c:out value="${shipment.sparePart.currentStatus}"/></td>
 				<td><c:out value="${shipment.simpleShippedDate}"/></td>
 				<td><c:out value="${shipment.simpleArrivedDate}"/></td>
 				<td><c:out value="${shipment.trackingInfo}"/></td>

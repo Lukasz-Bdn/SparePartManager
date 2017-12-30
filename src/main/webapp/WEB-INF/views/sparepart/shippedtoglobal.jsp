@@ -13,35 +13,44 @@
 	<div class="container">
 	<%@include file="../jspf/part_menu.jspf"%>
 	
-		<h3>List of all spare parts inserted into remote locations system:</h3>
+
+		<h3>List of all shipments to global location:</h3>
 		  <table class="table table-dark table-hover text-center">
     		<thead>
       		  <tr>
-        	    <th>Name</th>
-        		<th>Manufacturer</th>
+        	    <th>Id</th>
+        		<th>Origin</th>
+        		<th>Destination</th>
+        		<th>Part</th>
         		<th>Part number</th>
         		<th>Serial number</th>
-        		<th>Location</th>
         		<th>Status</th>
-        		<th>Storage/system location</th>
+        		<th>Shipped</th>
+        		<th>Arrived</th>
+        		<th>Tracking info</th>
       		  </tr>
     		</thead>
     		<tbody>
-		<c:forEach items="${spareParts}" var="sparePart">
+		<c:forEach items="${shipmentsToGlobal}" var="shipment">
 			  <tr>
-				<td><c:out value="${sparePart.name}"/></td>
-				<td><c:out value="${sparePart.manufacturer.name}"/></td>
-				<td><c:out value="${sparePart.partNumber}"/></td>
-				<td><c:out value="${sparePart.serialNumber}"/></td>
-				<td><c:out value="${sparePart.currentLocation.name}"/></td>
-				<td><c:out value="${sparePart.currentStatus}"/></td>
-				<td><c:out value="${sparePart.currentStorageLocation}"/></td>
+				<td><c:out value="${shipment.id}"/></td>
+				<td><c:out value="${shipment.origin.name}"/></td>
+				<td><c:out value="${shipment.destination.name}"/></td>
+				<td><c:out value="${shipment.sparePart.name}"/></td>
+				<td><c:out value="${shipment.sparePart.partNumber}"/></td>
+				<td><c:out value="${shipment.sparePart.serialNumber}"/></td>
+				<td><c:out value="${shipment.sparePart.currentStatus}"/></td>
+				<td><c:out value="${shipment.simpleShippedDate}"/></td>
+				<td><c:out value="${shipment.simpleArrivedDate}"/></td>
+				<td><c:out value="${shipment.trackingInfo}"/></td>
 				<td>
 				  <div class="dropdown">
     				<button type="button" class="btn btn-primary dropdown-toggle btn-secondary" data-toggle="dropdown">
       				Actions</button>
     				<div class="dropdown-menu">
-      				<a class="dropdown-item" href="${sparePart.id}/remove">Remove from system</a>
+      				<a class="dropdown-item" href="${shipment.id}/shipments/edit">Edit</a>
+      				<a class="dropdown-item" href="${shipment.id}/shipments/cancel">Cancel</a>
+      				<a class="dropdown-item" href="${shipment.id}/shipments/arrivedToLocation">Mark as arrived</a>
     				</div>
   				 </div>
 				</td>

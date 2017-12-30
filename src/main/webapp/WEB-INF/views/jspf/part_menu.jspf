@@ -8,14 +8,12 @@ All parts</a>
 <a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/global">
 Global</a>
 <a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/shippedtolocation">
-Shipped to location</a>
+Shipped to remote</a>
 <a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/location">
-Location storage</a>
+Remote storage</a>
 <a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/system">
-Location system</a>
-<a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/readytoship">
-Ready for shipping</a>
+Remote system</a>
+<a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/removed">
+Removed from remote </a>
 <a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/shippedtoglobal">
-Shipped to global</a>
-<a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/readytoreturn">
 Shipped to global</a>

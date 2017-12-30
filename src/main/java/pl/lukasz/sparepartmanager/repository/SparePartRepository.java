@@ -8,4 +8,5 @@ import pl.lukasz.sparepartmanager.entity.SparePart;
 
 public interface SparePartRepository extends JpaRepository<SparePart, Integer>{
 	List<SparePart> findAllByCurrentLocationIsGlobal(boolean isGlobal);
+	List<SparePart> findByCurrentStatus(String status);
 }
