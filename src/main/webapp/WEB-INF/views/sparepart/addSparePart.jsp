@@ -24,12 +24,17 @@
 		<div class="form-group">Part number: <form:input path="partNumber" cssClass="form-control"/>
 		<form:errors path="partNumber" /></div>
 		<div class="form-group">Serial number: <form:input path="serialNumber" cssClass="form-control"/>
-		<form:errors path="serialNumber" /><br /></div>
+		<form:errors path="serialNumber" /></div>
 		<div class="form-group">Location (new items can be added only to global locations): 
 		  <form:select type="text" path="currentLocation" cssClass="form-control">
 		  <form:options items="${globalLocations}" itemValue="id" itemLabel="name" />
 		</form:select> <form:errors path="currentLocation"/> </div>
+		<div class="form-group">Current storage location: <form:input path="currentStorageLocation" 
+		cssClass="form-control"/>
+		<br/>
 		<input type="submit" class="btn btn-primary">
+		<form:errors path="currentStorageLocation" /><br /></div>
+		
 		</form:form><br /> 
 	</c:if>
 	</div>

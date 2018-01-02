@@ -268,6 +268,13 @@ public class SparePartController {
 		return "redirect:/sparepart/shippedtoglobal";
 		}
 	
+	@GetMapping("shipmenthistory")
+	public String shipmentHistory(Model m) {
+		List<Shipment> availableShipments = this.shipmentRepo.findAll();
+		m.addAttribute("availableShipments", availableShipments);
+		return "sparepart/shipmentHistory";
+	}
+	
 	//Model attributes
 	@ModelAttribute("availableSpareParts")
 	public List<SparePart> availableSpareParts() {

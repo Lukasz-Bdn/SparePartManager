@@ -17,3 +17,5 @@ Remote system</a>
 Removed from remote </a>
 <a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/shippedtoglobal">
 Shipped to global</a>
+<a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/shipmenthistory">
+Shipment history</a>
