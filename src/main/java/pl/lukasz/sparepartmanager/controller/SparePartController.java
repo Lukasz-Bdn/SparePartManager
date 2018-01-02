@@ -160,12 +160,20 @@ public class SparePartController {
 	}
 	
 	@GetMapping("{id}/shipments/arrivedToLocation")
+	public String arrivedToLocationGet(@PathVariable int id, Model m) {
+		SparePart sparePart = this.sparePartRepo.findOne(id);
+		m.addAttribute("sparePart", sparePart);
+		return "sparepart/arrivedToLocation";
+	}
+	
+	@PostMapping("{id}/shipments/arrivedToLocation")
 	@Transactional
-	public String arrivedToLocation(@PathVariable int id) {
+	public String arrivedToLocation(@PathVariable int id, @ModelAttribute SparePart sparePartForm) {
 		Shipment shipment = this.shipmentRepo.findOne(id);
 		shipment.setDateArrived(new Date());
 		shipment.setArchived(true);
 		SparePart sparePart = shipment.getSparePart();
+		sparePart.setCurrentStorageLocation(sparePartForm.getCurrentStorageLocation());
 		sparePart.setCurrentLocation(shipment.getDestination());
 		sparePart.setCurrentStatus("Available in remote location");
 		this.shipmentRepo.save(shipment);
@@ -189,9 +197,17 @@ public class SparePartController {
 	}
 	
 	@GetMapping("{id}/insert")
-	public String insertGet(@PathVariable int id) {
+	public String insertGet(@PathVariable int id, Model m) {
+		SparePart sparePart = sparePartRepo.findOne(id);
+		m.addAttribute("sparePart", sparePart);
+		return "sparepart/intoSystem";
+	}
+	
+	@PostMapping("{id}/insert")
+	public String insertPost(@PathVariable int id,@ModelAttribute SparePart sparePartForm) {
 		SparePart sparePart = sparePartRepo.findOne(id);
 		sparePart.setCurrentStatus("In system");
+		sparePart.setCurrentStorageLocation(sparePartForm.getCurrentStorageLocation());
 		sparePartRepo.save(sparePart);
 		return "redirect:/sparepart/system";
 	}
@@ -204,9 +220,10 @@ public class SparePartController {
 	}
 	
 	@PostMapping("{id}/remove")
-	public String removePost(@PathVariable int id) {
+	public String removePost(@PathVariable int id, @ModelAttribute SparePart sparePartForm) {
 		SparePart sparePart = sparePartRepo.findOne(id);
 		sparePart.setCurrentStatus("Removed from system");
+		sparePart.setCurrentStorageLocation(sparePartForm.getCurrentStorageLocation());
 		sparePartRepo.save(sparePart);
 		return "redirect:/sparepart/removed";
 	}
@@ -256,14 +273,23 @@ public class SparePartController {
 	}
 	
 	@GetMapping("{id}/shipments/arrivedToGlobal")
+	public String arrivedToGlobalGet(@PathVariable int id, Model m) {
+		SparePart sparePart = this.sparePartRepo.findOne(id);
+		m.addAttribute("sparePart", sparePart);
+		return "sparepart/arrivedToGlobal";
+	}
+	
+	
+	@PostMapping("{id}/shipments/arrivedToGlobal")
 	@Transactional
-	public String arrivedToGlobal(@PathVariable int id) {
+	public String arrivedToGlobalPost(@PathVariable int id, @ModelAttribute SparePart sparePartForm) {
 		Shipment shipment = this.shipmentRepo.findOne(id);
 		shipment.setDateArrived(new Date());
 		shipment.setArchived(true);
 		SparePart sparePart = shipment.getSparePart();
 		sparePart.setCurrentLocation(shipment.getDestination());
 		sparePart.setCurrentStatus("Available");
+		sparePart.setCurrentStorageLocation(sparePartForm.getCurrentStorageLocation());
 		this.shipmentRepo.save(shipment);
 		return "redirect:/sparepart/shippedtoglobal";
 		}

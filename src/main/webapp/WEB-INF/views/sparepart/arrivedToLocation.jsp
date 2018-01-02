@@ -12,9 +12,9 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-      <c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
+    <c:if test="${not empty sessionScope.user}">
 
-		<h3 class="text-center">Are you sure you want to remove the following part from remote system:</h3>
+		<h3 class="text-center">Confirm the arrival of the following item:</h3>
 		  <table class="table table-dark table-hover text-center">
     		<thead>
       		  <tr>
@@ -24,7 +24,7 @@
         		<th>Serial number</th>
         		<th>Location</th>
         		<th>Status</th>
-        		<th>Storage/system location</th>      		  </tr>
+      		  </tr>
     		</thead>
     		<tbody>
 			  <tr>
@@ -34,21 +34,18 @@
 				<td><c:out value="${sparePart.serialNumber}"/></td>
 				<td><c:out value="${sparePart.currentLocation.name}"/></td>
 				<td><c:out value="${sparePart.currentStatus}"/></td>
-				<td><c:out value="${sparePart.currentStorageLocation}"/></td>
 			  </tr>
 			</tbody>
 		  </table>
-		  <div class="text-center">
-		    <h3>Please indicate the storage location for part after removing it from system</h3>
-		  
-		  	<form:form method="post" modelAttribute="sparePart">
-		  	<div class="form-group">New storage location: <form:input path="currentStorageLocation" cssClass="form-control"/>
-			<form:errors path="currentStorageLocation" /></div>
-			<input type="submit" value="Yes" class="btn btn-primary btn-success btn-lg"/> 
-			<input type="button" value="No" onclick="history.back()" 
-						class="btn btn-primary btn-danger btn-lg">
+		  <br/>
+		  	<h3>Please indicate the current storage location for received item:</h3>
+		  	<form:form method="post" modelAttribute="sparePart" class="form-inline">
+			  <td>
+			  	<div class="form-group">Name: <form:input path="currentStorageLocation" cssClass="form-control"/>
+				<form:errors path="currentStorageLocation" /></div>
+		  		<input type="submit" class="btn btn-primary" value="Submit">
 			</form:form>
-		  </div>
+
 	  </c:if>
 	</div>
 <%@include file="../jspf/foot_config.jspf"%>
