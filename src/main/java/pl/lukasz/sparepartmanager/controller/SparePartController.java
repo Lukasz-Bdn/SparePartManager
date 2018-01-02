@@ -240,7 +240,7 @@ public class SparePartController {
 		SparePart sparePart = sparePartRepo.findOne(id);
 		sparePart.setCurrentStatus("Available in remote location");
 		sparePartRepo.save(sparePart);
-		return "redirect:/sparepart/removed";
+		return "redirect:/sparepart/location";
 	}
 	
 	@GetMapping("/{id}/toglobal")
@@ -291,7 +291,7 @@ public class SparePartController {
 		sparePart.setCurrentStatus("Available");
 		sparePart.setCurrentStorageLocation(sparePartForm.getCurrentStorageLocation());
 		this.shipmentRepo.save(shipment);
-		return "redirect:/sparepart/shippedtoglobal";
+		return "redirect:/sparepart/global";
 		}
 	
 	@GetMapping("shipmenthistory")

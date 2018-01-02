@@ -41,7 +41,7 @@
 		  	<h3>Please indicate the current storage location for received item:</h3>
 		  	<form:form method="post" modelAttribute="sparePart" class="form-inline">
 			  <td>
-			  	<div class="form-group">Name: <form:input path="currentStorageLocation" cssClass="form-control"/>
+			  	<div class="form-group"><form:input path="currentStorageLocation" cssClass="form-control"/>
 				<form:errors path="currentStorageLocation" /></div>
 		  		<input type="submit" class="btn btn-primary" value="Submit">
 			</form:form>

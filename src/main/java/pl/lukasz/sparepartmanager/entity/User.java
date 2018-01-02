@@ -8,7 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
@@ -16,8 +18,14 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	@NotNull
+	@NotEmpty
 	private String username;
+	@NotNull
+	@NotEmpty
 	private String password;
+	@NotNull
+	@NotEmpty
 	private String email;
 	private boolean enabled;
 	private String userRole;

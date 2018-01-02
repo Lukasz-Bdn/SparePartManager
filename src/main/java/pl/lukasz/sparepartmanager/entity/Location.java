@@ -10,14 +10,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Location {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	@NotNull
+	@NotEmpty
 	private String name;
+	@NotNull
+	@NotEmpty
 	private String description;
+	@NotNull
+	@NotEmpty
 	private String address;
 	private boolean isGlobal; //true for global, false for remote locations
 	@OneToMany(mappedBy="currentLocation", cascade=CascadeType.MERGE, fetch = FetchType.EAGER)

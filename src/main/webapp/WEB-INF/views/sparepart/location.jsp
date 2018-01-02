@@ -44,7 +44,7 @@
       				Actions</button>
     				<div class="dropdown-menu">
       				<a class="dropdown-item" href="${sparePart.id}/insert">Insert into system</a>
-      				<a class="dropdown-item" href="${sparePart.id}/return">Return to global</a>
+      				<a class="dropdown-item" href="${sparePart.id}/toglobal">Return to global</a>
     				</div>
   				 </div>
 				</td>

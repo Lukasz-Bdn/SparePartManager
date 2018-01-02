@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class SparePart {
 	@Id
@@ -21,7 +23,11 @@ public class SparePart {
 	@ManyToOne
 	@JoinColumn(name="manufacturer_id")
 	private Manufacturer manufacturer;
+	@NotNull
+	@NotEmpty
 	private String partNumber;
+	@NotNull
+	@NotEmpty
 	private String serialNumber;
 	@NotNull
 	@ManyToOne

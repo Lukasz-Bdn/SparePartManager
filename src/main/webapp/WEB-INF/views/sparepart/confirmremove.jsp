@@ -42,10 +42,10 @@
 		    <h3>Please indicate the storage location for part after removing it from system</h3>
 		  
 		  	<form:form method="post" modelAttribute="sparePart">
-		  	<div class="form-group">New storage location: <form:input path="currentStorageLocation" cssClass="form-control"/>
+		  	<div class="form-group"><form:input path="currentStorageLocation" cssClass="form-control"/>
 			<form:errors path="currentStorageLocation" /></div>
-			<input type="submit" value="Yes" class="btn btn-primary btn-success btn-lg"/> 
-			<input type="button" value="No" onclick="history.back()" 
+			<input type="submit" value="Confirm" class="btn btn-primary btn-success btn-lg"/> 
+			<input type="button" value="Cancel" onclick="history.back()" 
 						class="btn btn-primary btn-danger btn-lg">
 			</form:form>
 		  </div>
