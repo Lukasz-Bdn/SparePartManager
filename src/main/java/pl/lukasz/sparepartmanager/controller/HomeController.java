@@ -1,6 +1,7 @@
 package pl.lukasz.sparepartmanager.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,18 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import pl.lukasz.sparepartmanager.bean.LoginData;
 import pl.lukasz.sparepartmanager.bean.SessionManager;
-import pl.lukasz.sparepartmanager.entity.Location;
 import pl.lukasz.sparepartmanager.entity.User;
-import pl.lukasz.sparepartmanager.entity.UserRole;
 import pl.lukasz.sparepartmanager.repository.UserRepository;
-import pl.lukasz.sparepartmanager.repository.UserRoleRepository;
 
 @Controller("/")
 public class HomeController {
 	@Autowired
 	private UserRepository userRepo;
-	@Autowired
-	private UserRoleRepository userRoleRepo;
 	
 	@GetMapping("/")
 	public String home() {
@@ -43,7 +39,6 @@ public class HomeController {
 		if(user!=null && user.isPasswordCorrent(loginData.getPassword())) {
 			HttpSession session = SessionManager.session();
 			session.setAttribute("user", user);
-			session.setAttribute("userRole", this.userRoleRepo.findOneByUserId(user.getId()));
 			return "redirect:/";
 		}
 		m.addAttribute("msg", "Please use valid login data");
@@ -57,14 +52,13 @@ public class HomeController {
 	}
 	
 	@PostMapping("register")
+	@Transactional
 	public String registerPost(@ModelAttribute User user, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return "redirect:register";
 		} else {
+			user.setUserRole("ROLE_USER");
 			this.userRepo.save(user);
-			UserRole userRole = new UserRole();
-			userRole.setRole("ROLE_USER");
-			userRole.setUser(user);
 			return "redirect:/login";
 		}
 	}

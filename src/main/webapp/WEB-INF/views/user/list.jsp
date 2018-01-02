@@ -11,42 +11,32 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-    <c:if test="${not empty sessionScope.user}">
-	<%@include file="../jspf/part_menu.jspf"%>
-	
-
-		<h3>List of all spare parts removed from remote systems:</h3>
+      <c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
+		<h3>List of all manufacturers:</h3>
 		  <table class="table table-dark table-hover text-center">
     		<thead>
       		  <tr>
-        	    <th>Name</th>
-        		<th>Manufacturer</th>
-        		<th>Part number</th>
-        		<th>Serial number</th>
+        	    <th>Username</th>
+        		<th>Email</th>
+        		<th>Enabled</th>
+        		<th>Role</th>
         		<th>Location</th>
-        		<th>Status</th>
-        		<th>Storage/system location</th>
       		  </tr>
     		</thead>
     		<tbody>
-		<c:forEach items="${spareParts}" var="sparePart">
+		<c:forEach items="${userList}" var="user">
 			  <tr>
-				<td><c:out value="${sparePart.name}"/></td>
-				<td><c:out value="${sparePart.manufacturer.name}"/></td>
-				<td><c:out value="${sparePart.partNumber}"/></td>
-				<td><c:out value="${sparePart.serialNumber}"/></td>
-				<td><c:out value="${sparePart.currentLocation.name}"/></td>
-				<td><c:out value="${sparePart.currentStatus}"/></td>
-				<td><c:out value="${sparePart.currentStorageLocation}"/></td>
+				<td><c:out value="${user.username}"/></td>
+				<td><c:out value="${user.email}"/></td>
+				<td><c:out value="${user.enabled}"/></td>
+				<td><c:out value="${user.userRole}"/></td>
+				<td><c:out value="${user.location.name}"/></td>				
 				<td>
 				  <div class="dropdown">
     				<button type="button" class="btn btn-primary dropdown-toggle btn-secondary" data-toggle="dropdown">
       				Actions</button>
     				<div class="dropdown-menu">
-      				<a class="dropdown-item" href="${sparePart.id}/tolocal">
-      					Return to local stock</a>
-      				<a class="dropdown-item" href="${sparePart.id}/toglobal">
-      					Ship to global stock</a>
+      				<a class="dropdown-item" href="${user.id}/edit">Edit</a>
     				</div>
   				 </div>
 				</td>
@@ -54,7 +44,7 @@
 			</c:forEach>  
 			</tbody>
 		  </table>
-	  </c:if>
+	  </c:if>	  
 	</div>
 <%@include file="../jspf/foot_config.jspf"%>
 </body>

@@ -12,7 +12,7 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-
+    <c:if test="${not empty sessionScope.user}">
 		<h3 class="text-center">Shipping of the following item:</h3>
 		  <table class="table table-dark table-hover text-center">
     		<thead>
@@ -48,7 +48,7 @@
 		  		<input type="submit" class="btn btn-primary" value="Ship to this location">
 			</form:form>
 
-		  
+	  </c:if>	  
 	</div>
 <%@include file="../jspf/foot_config.jspf"%>
 </body>

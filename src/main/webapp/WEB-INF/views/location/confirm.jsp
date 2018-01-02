@@ -12,6 +12,8 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
+	    <c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
+	
 
 		<h3 class="text-center">Are you sure you want to delete the following location:</h3>
 		  <table class="table table-dark table-hover text-center">
@@ -39,7 +41,7 @@
 						class="btn btn-primary btn-danger btn-lg">
 			</form:form>
 		  </div>
-		  
+		  </c:if>
 	</div>
 <%@include file="../jspf/foot_config.jspf"%>
 </body>

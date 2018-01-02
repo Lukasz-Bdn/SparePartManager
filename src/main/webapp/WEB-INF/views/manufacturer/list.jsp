@@ -27,6 +27,7 @@
 				<td><c:out value="${manufacturer.name}"/></td>
 				<td><c:out value="${manufacturer.returnAddress}"/></td>
 				<td><c:out value="${manufacturer.additionalInfo}"/></td>
+    			<c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
 				<td>
 				  <div class="dropdown">
     				<button type="button" class="btn btn-primary dropdown-toggle btn-secondary" data-toggle="dropdown">
@@ -37,6 +38,7 @@
     				</div>
   				 </div>
 				</td>
+				</c:if>
 			  </tr>
 			</c:forEach>  
 			</tbody>

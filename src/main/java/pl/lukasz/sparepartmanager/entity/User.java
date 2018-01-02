@@ -1,9 +1,13 @@
 package pl.lukasz.sparepartmanager.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -16,23 +20,19 @@ public class User {
 	private String password;
 	private String email;
 	private boolean enabled;
+	private String userRole;
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="location_id")
+	private Location location;
 	
 	public User() {
 		super();
 	}
 
-	public User(String username, String password, String email, boolean enabled) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.enabled = enabled;
-	}
-
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
-				+ ", enabled=" + enabled + "]";
+		return "User [id=" + id + ", username=" + username  + ", email=" + email
+				+ ", enabled=" + enabled + ", userRole=" + userRole + ", location=" + location + "]";
 	}
 
 	public int getId() {
@@ -59,6 +59,10 @@ public class User {
 		this.password = BCrypt.hashpw(password, BCrypt.gensalt());
 	}
 	
+	public void setPasswordEncrypted(String password) {
+		this.password = password;
+	}
+	
 	public boolean isPasswordCorrent(String password) {
 		return BCrypt.checkpw(password, this.password);
 	}
@@ -77,6 +81,22 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}	
+	}
+
+	public String getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
 
 }

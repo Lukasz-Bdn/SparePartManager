@@ -11,6 +11,7 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
+    <c:if test="${not empty sessionScope.user}">
 	<%@include file="../jspf/part_menu.jspf"%>
 	
 
@@ -50,7 +51,7 @@
     				<div class="dropdown-menu">
       				<a class="dropdown-item" href="${shipment.id}/shipments/edit">Edit</a>
       				<a class="dropdown-item" href="${shipment.id}/shipments/cancel">Cancel</a>
-      				<a class="dropdown-item" href="${shipment.id}/shipments/arrivedToLocation">Mark as arrived</a>
+      				<a class="dropdown-item" href="${shipment.id}/shipments/arrivedToGlobal">Mark as arrived</a>
     				</div>
   				 </div>
 				</td>
@@ -58,7 +59,7 @@
 			</c:forEach>  
 			</tbody>
 		  </table>
-		  
+	  </c:if>	  
 	</div>
 <%@include file="../jspf/foot_config.jspf"%>
 </body>

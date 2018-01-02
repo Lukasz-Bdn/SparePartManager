@@ -31,20 +31,10 @@ public class Shipment {
 	private Date dateShipped;
 	private Date dateArrived;
 	private String trackingInfo;
+	private boolean isArchived;
 	
 	public Shipment() {
 		super();
-	}
-
-	public Shipment(SparePart sparePart, Location origin, Location destination, Date dateShipped, Date dateArrived,
-			String trackingInfo) {
-		super();
-		this.sparePart = sparePart;
-		this.origin = origin;
-		this.destination = destination;
-		this.dateShipped = dateShipped;
-		this.dateArrived = dateArrived;
-		this.trackingInfo = trackingInfo;
 	}
 
 	public SparePart getSparePart() {
@@ -103,6 +93,14 @@ public class Shipment {
 
 	public void setDateArrived(Date dateArrived) {
 		this.dateArrived = dateArrived;
+	}
+
+	public boolean isArchived() {
+		return isArchived;
+	}
+
+	public void setArchived(boolean isArchived) {
+		this.isArchived = isArchived;
 	}
 
 	public Shipment updateWith(Shipment shipment) {

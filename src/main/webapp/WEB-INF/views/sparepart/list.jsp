@@ -11,6 +11,7 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
+    <c:if test="${not empty sessionScope.user}">
 	<%@include file="../jspf/part_menu.jspf"%>
 	
 
@@ -51,7 +52,7 @@
 			</c:forEach>  
 			</tbody>
 		  </table>
-		  
+	  </c:if>
 	</div>
 <%@include file="../jspf/foot_config.jspf"%>
 </body>

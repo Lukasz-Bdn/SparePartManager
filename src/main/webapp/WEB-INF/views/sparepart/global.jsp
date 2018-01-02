@@ -11,9 +11,11 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
+	
+	<c:if test="${not empty sessionScope.user}">
+	
 	<%@include file="../jspf/part_menu.jspf"%>
 	
-
 		<h3>List of all spare parts:</h3>
 		  <table class="table table-dark table-hover text-center">
     		<thead>
@@ -52,7 +54,7 @@
 			</c:forEach>  
 			</tbody>
 		  </table>
-		  
+	  </c:if>
 	</div>
 <%@include file="../jspf/foot_config.jspf"%>
 </body>

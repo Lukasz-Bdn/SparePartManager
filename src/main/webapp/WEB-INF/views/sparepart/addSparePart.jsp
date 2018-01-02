@@ -12,7 +12,8 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-
+	
+    <c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
 		<h3>Add new spare part:</h3>
 		<form:form method="post" modelAttribute="sparePart">
 		<div class="form-group">Name: <form:input path="name" cssClass="form-control"/>
@@ -30,6 +31,7 @@
 		</form:select> <form:errors path="currentLocation"/> </div>
 		<input type="submit" class="btn btn-primary">
 		</form:form><br /> 
+	</c:if>
 	</div>
 	<%@include file="../jspf/foot_config.jspf"%>
 </body>

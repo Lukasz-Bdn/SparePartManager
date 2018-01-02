@@ -12,7 +12,8 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-
+	  <c:if test="${not empty sessionScope.user}">
+	  
 		<h3>Edit the following shipment:</h3>
 		<table class="table table-dark table-hover text-center">
     		<thead>
@@ -55,6 +56,7 @@
 		<form:errors path="trackingInfo" /></div>
 		<input type="submit" class="btn btn-primary" value"Edit shipment">
 		</form:form>
+	  </c:if>
 	<%@include file="../jspf/foot_config.jspf"%>
 </body>
 </html>

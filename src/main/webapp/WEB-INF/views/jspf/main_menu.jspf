@@ -7,8 +7,13 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+  <c:if test="${not empty sessionScope.user}">
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
+    <c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
+      <li class="nav-item">
+        <a class="nav-link" href="${pageContext.request.contextPath}/user/all">Users</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/location/all">Locations</a>
       </li>
@@ -21,14 +26,17 @@
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/manufacturer/addform">Add new manufacturer</a>
       </li>
-      
+      </c:if>
       <li class="nav-item">
         <a class="nav-link"href="${pageContext.request.contextPath}/sparepart/all">Spare parts</a>
       </li>
+    <c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/sparepart/addform">Add new spare part</a>
       </li>
+    </c:if>
     </ul>
   </div>
+  </c:if>
 </nav>
 <br/>

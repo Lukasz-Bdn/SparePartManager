@@ -30,6 +30,8 @@
 				<td><c:out value="${location.description}"/></td>
 				<td><c:out value="${location.address}"/></td>
 				<td><c:out value="${location.isGlobal}"/></td>
+				    
+				<c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
 				<td>
 				  <div class="dropdown">
     				<button type="button" class="btn btn-primary dropdown-toggle btn-secondary" data-toggle="dropdown">
@@ -40,6 +42,7 @@
     				</div>
   				 </div>
 				</td>
+				</c:if>
 			  </tr>
 			</c:forEach>  
 			</tbody>

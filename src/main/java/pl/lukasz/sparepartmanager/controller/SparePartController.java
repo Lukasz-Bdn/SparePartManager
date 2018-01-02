@@ -1,6 +1,5 @@
 package pl.lukasz.sparepartmanager.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -120,7 +119,8 @@ public class SparePartController {
 	
 	@GetMapping("shippedtolocation")
 	public String shippedToLocation(Model m) {
-		List<Shipment> shipmentsToLocation = shipmentRepo.findAll();
+		List<Shipment> shipmentsToLocation = shipmentRepo
+				.findAllByIsArchivedAndOriginIsGlobal(false, true);
 		m.addAttribute("shipmentsToLocation", shipmentsToLocation);
 		return "sparepart/shipments";
 	}
@@ -164,6 +164,7 @@ public class SparePartController {
 	public String arrivedToLocation(@PathVariable int id) {
 		Shipment shipment = this.shipmentRepo.findOne(id);
 		shipment.setDateArrived(new Date());
+		shipment.setArchived(true);
 		SparePart sparePart = shipment.getSparePart();
 		sparePart.setCurrentLocation(shipment.getDestination());
 		sparePart.setCurrentStatus("Available in remote location");
@@ -248,10 +249,24 @@ public class SparePartController {
 	
 	@GetMapping("shippedtoglobal")
 	public String shippedToGlobal(Model m) {
-		List<Shipment> shipmentsToGlobal = shipmentRepo.findAll();
+		List<Shipment> shipmentsToGlobal = shipmentRepo
+				.findAllByIsArchivedAndOriginIsGlobal(false, false);
 		m.addAttribute("shipmentsToGlobal", shipmentsToGlobal);
 		return "sparepart/shippedtoglobal";
 	}
+	
+	@GetMapping("{id}/shipments/arrivedToGlobal")
+	@Transactional
+	public String arrivedToGlobal(@PathVariable int id) {
+		Shipment shipment = this.shipmentRepo.findOne(id);
+		shipment.setDateArrived(new Date());
+		shipment.setArchived(true);
+		SparePart sparePart = shipment.getSparePart();
+		sparePart.setCurrentLocation(shipment.getDestination());
+		sparePart.setCurrentStatus("Available");
+		this.shipmentRepo.save(shipment);
+		return "redirect:/sparepart/shippedtoglobal";
+		}
 	
 	//Model attributes
 	@ModelAttribute("availableSpareParts")
