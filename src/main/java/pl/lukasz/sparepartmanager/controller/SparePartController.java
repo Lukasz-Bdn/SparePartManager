@@ -156,6 +156,7 @@ public class SparePartController {
 		Shipment uneditedShipment = (Shipment) s.getAttribute("shipment");
 		shipment = uneditedShipment.updateWith(shipment);
 		this.shipmentRepo.save(shipment);
+		s.setAttribute("shipment", null);
 		return "redirect:/sparepart/shippedtolocation";
 	}
 	
@@ -272,6 +273,27 @@ public class SparePartController {
 		return "sparepart/shippedtoglobal";
 	}
 	
+	
+	@GetMapping("{id}/shipments/editglobal")
+	public String shippedToGlobalEditGet(@PathVariable int id, Model m, RedirectAttributes ra) {
+		Shipment shipment = this.shipmentRepo.findOne(id);
+		HttpSession s = SessionManager.session();
+		s.setAttribute("shipment", shipment);
+		m.addAttribute("shipment", shipment);
+		return "sparepart/editShipmentGlobal";
+	}
+	
+	@PostMapping("{id}/shipments/editglobal")
+	public String shippedToGlobalEditPost(@PathVariable int id, @ModelAttribute Shipment shipment) {
+		HttpSession s = SessionManager.session();
+		Shipment uneditedShipment = (Shipment) s.getAttribute("shipment");
+		shipment = uneditedShipment.updateWith(shipment);
+		this.shipmentRepo.save(shipment);
+		s.setAttribute("shipment", null);
+		return "redirect:/sparepart/shippedtoglobal";
+	}
+	
+		
 	@GetMapping("{id}/shipments/arrivedToGlobal")
 	public String arrivedToGlobalGet(@PathVariable int id, Model m) {
 		SparePart sparePart = this.sparePartRepo.findOne(id);
