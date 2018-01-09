@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.lukasz.sparepartmanager.entity.Shipment;
+import pl.lukasz.sparepartmanager.entity.SparePart;
 import pl.lukasz.sparepartmanager.entity.User;
 
 public class LocationFilter {
-	private User user;
-	private List<Shipment> shipments;
 	
 	public static List<Shipment> filterShipments(User sessionUser, List<Shipment> shipments) {
 		if (sessionUser.getUserRole().equals("ROLE_ADMIN")) {
@@ -23,4 +22,18 @@ public class LocationFilter {
 		}
 		return result;
 	}
+	
+	public static List<SparePart> filterSparePart(User sessionUser, List<SparePart> spareParts) {
+		if (sessionUser.getUserRole().equals("ROLE_ADMIN")) {
+			return spareParts;
+		}
+		List<SparePart> result = new ArrayList<>();
+		for (SparePart sparePart : spareParts) {
+			if(sparePart.getCurrentLocation().getId()==sessionUser.getLocation().getId()) {
+				result.add(sparePart);
+			}
+		}
+		return result;
+	}
+	
 }

@@ -5,8 +5,10 @@
 <h5>Select group of parts to display:</h5>
 <a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/all">
 All parts</a>
-<a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/global">
-Global</a>
+<c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
+  <a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/global">
+  Global</a>
+</c:if>
 <a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/shippedtolocation">
 Shipped to remote</a>
 <a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/location">
@@ -18,4 +20,4 @@ Removed from remote </a>
 <a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/shippedtoglobal">
 Shipped to global</a>
 <a class="btn btn-secondary" href="${pageContext.request.contextPath}/sparepart/shipmenthistory">
-Shipment history</a>
+Shipment history</a>s

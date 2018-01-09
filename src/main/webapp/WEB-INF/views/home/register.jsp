@@ -35,7 +35,7 @@
 		
 		<div class="form-group">Password: <form:password path="password" cssClass="form-control"/>
 		<form:errors path="password" /></div>
-		<input type="submit" class="btn btn-primary">
+		<input type="submit" class="btn btn-primary" value="Register new user">
 		</form:form><br /> 
 		${user}
 		</div>

@@ -45,6 +45,12 @@ public class SparePartController {
 	
 	@GetMapping("/all")
 	public String all(Model m) {
+		List<SparePart> availableSpareParts = this.sparePartRepo.findAll();
+		HttpSession session = SessionManager.session();
+		availableSpareParts = LocationFilter.
+				filterSparePart((User) session.getAttribute("user"),
+						availableSpareParts);
+		m.addAttribute("availableSpareParts", availableSpareParts);
 		return "sparepart/list";
 	}
 	
@@ -191,6 +197,10 @@ public class SparePartController {
 	public String location(Model m) {
 		List<SparePart> spareParts = sparePartRepo.findAllByCurrentLocationIsGlobal(false);
 		spareParts = SparePart.selectStatus(spareParts, "Available in remote location");
+		HttpSession session = SessionManager.session();
+		spareParts = LocationFilter.
+				filterSparePart((User) session.getAttribute("user"),
+						spareParts);
 		m.addAttribute("spareParts", spareParts);
 		return "sparepart/location";
 	}
@@ -199,6 +209,10 @@ public class SparePartController {
 	public String systemGet(Model m) {
 		List<SparePart> spareParts = sparePartRepo.findAllByCurrentLocationIsGlobal(false);
 		spareParts = SparePart.selectStatus(spareParts, "In system");
+		HttpSession session = SessionManager.session();
+		spareParts = LocationFilter.
+				filterSparePart((User) session.getAttribute("user"),
+						spareParts);
 		m.addAttribute("spareParts", spareParts);
 		return "/sparepart/system";
 	}
@@ -238,6 +252,10 @@ public class SparePartController {
 	@GetMapping("removed")
 	public String readyToShip(Model m) {
 		List<SparePart> spareParts = sparePartRepo.findByCurrentStatus("Removed from system");
+		HttpSession session = SessionManager.session();
+		spareParts = LocationFilter.
+				filterSparePart((User) session.getAttribute("user"),
+						spareParts);
 		m.addAttribute("spareParts", spareParts);
 		return "sparepart/removed";
 	}

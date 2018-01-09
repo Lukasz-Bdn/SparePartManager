@@ -16,6 +16,8 @@
 	
 
 		<h3>List of all spare parts:</h3>
+		<input type="text" id="myInput" onkeyup="searchTable()" 
+			placeholder="Search the table.." title="Type in searched phrase">
 		  <table class="table table-dark table-hover text-center">
     		<thead>
       		  <tr>
@@ -28,7 +30,7 @@
         		<th>Storage/system location</th>
       		  </tr>
     		</thead>
-    		<tbody>
+    		<tbody id="myTable">
 		<c:forEach items="${availableSpareParts}" var="sparePart">
 			  <tr>
 				<td><c:out value="${sparePart.name}"/></td>
