@@ -23,10 +23,12 @@ import pl.lukasz.sparepartmanager.entity.Location;
 import pl.lukasz.sparepartmanager.entity.Manufacturer;
 import pl.lukasz.sparepartmanager.entity.Shipment;
 import pl.lukasz.sparepartmanager.entity.SparePart;
+import pl.lukasz.sparepartmanager.entity.User;
 import pl.lukasz.sparepartmanager.repository.LocationRepository;
 import pl.lukasz.sparepartmanager.repository.ManufacturerRepository;
 import pl.lukasz.sparepartmanager.repository.ShipmentRepository;
 import pl.lukasz.sparepartmanager.repository.SparePartRepository;
+import pl.lukasz.sparepartmanager.utility.LocationFilter;
 
 @Controller
 @RequestMapping("/sparepart")
@@ -121,6 +123,9 @@ public class SparePartController {
 	public String shippedToLocation(Model m) {
 		List<Shipment> shipmentsToLocation = shipmentRepo
 				.findAllByIsArchivedAndOriginIsGlobal(false, true);
+		HttpSession session = SessionManager.session();
+		shipmentsToLocation = LocationFilter.
+				filterShipments((User) session.getAttribute("user"), shipmentsToLocation);
 		m.addAttribute("shipmentsToLocation", shipmentsToLocation);
 		return "sparepart/shipments";
 	}

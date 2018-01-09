@@ -50,8 +50,10 @@
     				<button type="button" class="btn btn-primary dropdown-toggle btn-secondary" data-toggle="dropdown">
       				Actions</button>
     				<div class="dropdown-menu">
-      				<a class="dropdown-item" href="${shipment.id}/shipments/edit">Edit</a>
-      				<a class="dropdown-item" href="${shipment.id}/shipments/cancel">Cancel</a>
+    				<c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
+      				  <a class="dropdown-item" href="${shipment.id}/shipments/edit">Edit</a>
+      				  <a class="dropdown-item" href="${shipment.id}/shipments/cancel">Cancel</a>
+      				</c:if>
       				<a class="dropdown-item" href="${shipment.id}/shipments/arrivedToLocation">Mark as arrived</a>
     				</div>
   				 </div>
