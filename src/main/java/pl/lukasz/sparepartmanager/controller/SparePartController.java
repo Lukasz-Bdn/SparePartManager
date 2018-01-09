@@ -318,7 +318,7 @@ public class SparePartController {
 	
 	@GetMapping("shipmenthistory")
 	public String shipmentHistory(Model m) {
-		List<Shipment> availableShipments = this.shipmentRepo.findAll();
+		List<Shipment> availableShipments = this.shipmentRepo.findAllOrderByDateShipped();
 		m.addAttribute("availableShipments", availableShipments);
 		return "sparepart/shipmentHistory";
 	}
