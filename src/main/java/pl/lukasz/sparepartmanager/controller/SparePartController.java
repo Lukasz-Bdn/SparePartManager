@@ -125,7 +125,8 @@ public class SparePartController {
 				.findAllByIsArchivedAndOriginIsGlobal(false, true);
 		HttpSession session = SessionManager.session();
 		shipmentsToLocation = LocationFilter.
-				filterShipments((User) session.getAttribute("user"), shipmentsToLocation);
+				filterShipments((User) session.getAttribute("user"),
+								shipmentsToLocation);
 		m.addAttribute("shipmentsToLocation", shipmentsToLocation);
 		return "sparepart/shipments";
 	}
@@ -274,6 +275,10 @@ public class SparePartController {
 	public String shippedToGlobal(Model m) {
 		List<Shipment> shipmentsToGlobal = shipmentRepo
 				.findAllByIsArchivedAndOriginIsGlobal(false, false);
+		HttpSession session = SessionManager.session();
+		shipmentsToGlobal = LocationFilter.
+				filterShipments((User) session.getAttribute("user"),
+						shipmentsToGlobal);
 		m.addAttribute("shipmentsToGlobal", shipmentsToGlobal);
 		return "sparepart/shippedtoglobal";
 	}
