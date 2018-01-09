@@ -329,6 +329,10 @@ public class SparePartController {
 	@GetMapping("shipmenthistory")
 	public String shipmentHistory(Model m) {
 		List<Shipment> availableShipments = this.shipmentRepo.findAllOrderByDateShipped();
+		HttpSession session = SessionManager.session();
+		availableShipments = LocationFilter.
+				filterShipments((User) session.getAttribute("user"),
+						availableShipments);
 		m.addAttribute("availableShipments", availableShipments);
 		return "sparepart/shipmentHistory";
 	}
