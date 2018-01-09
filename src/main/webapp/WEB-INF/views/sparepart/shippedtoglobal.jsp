@@ -11,7 +11,7 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-    <c:if test="${not empty sessionScope.user}">
+    <c:if test="${sessionScope.user.enabled}">
 	<%@include file="../jspf/part_menu.jspf"%>
 	
 
@@ -51,7 +51,9 @@
     				<div class="dropdown-menu">
       				<a class="dropdown-item" href="${shipment.id}/shipments/editglobal">Edit</a>
       				<a class="dropdown-item" href="${shipment.id}/shipments/cancel">Cancel</a>
-      				<a class="dropdown-item" href="${shipment.id}/shipments/arrivedToGlobal">Mark as arrived</a>
+      				<c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
+      				  <a class="dropdown-item" href="${shipment.id}/shipments/arrivedToGlobal">Mark as arrived</a>
+    				</c:if>
     				</div>
   				 </div>
 				</td>

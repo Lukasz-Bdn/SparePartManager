@@ -12,7 +12,7 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-    <c:if test="${not empty sessionScope.user}">
+    <c:if test="${sessionScope.user.enabled}">
 		<h3 class="text-center">Shipping of the following item:</h3>
 		  <table class="table table-dark table-hover text-center">
     		<thead>

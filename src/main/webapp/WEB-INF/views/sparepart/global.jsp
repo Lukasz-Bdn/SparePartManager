@@ -39,7 +39,8 @@
 				<td><c:out value="${sparePart.currentLocation.name}"/></td>
 				<td><c:out value="${sparePart.currentStatus}"/></td>
 				<td><c:out value="${sparePart.currentStorageLocation}"/></td>
-				<td>
+				<c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
+				 <td>
 				  <div class="dropdown">
     				<button type="button" class="btn btn-primary dropdown-toggle btn-secondary" data-toggle="dropdown">
       				Actions</button>
@@ -48,8 +49,9 @@
       				<a class="dropdown-item" href="${sparePart.id}/delete">Delete</a>
       				<a class="dropdown-item" href="${sparePart.id}/shiptolocation">Ship to location</a>
     				</div>
-  				 </div>
-				</td>
+  				  </div>
+				 </td>
+				</c:if>
 			  </tr>
 			</c:forEach>  
 			</tbody>

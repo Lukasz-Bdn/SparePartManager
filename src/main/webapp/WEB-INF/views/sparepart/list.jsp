@@ -11,7 +11,7 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-    <c:if test="${not empty sessionScope.user}">
+    <c:if test="${sessionScope.user.enabled}">
 	<%@include file="../jspf/part_menu.jspf"%>
 	
 
@@ -38,7 +38,8 @@
 				<td><c:out value="${sparePart.currentLocation.name}"/></td>
 				<td><c:out value="${sparePart.currentStatus}"/></td>
 				<td><c:out value="${sparePart.currentStorageLocation}"/></td>
-				<td>
+				<c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
+				 <td>
 				  <div class="dropdown">
     				<button type="button" class="btn btn-primary dropdown-toggle btn-secondary" data-toggle="dropdown">
       				Actions</button>
@@ -46,8 +47,9 @@
       				<a class="dropdown-item" href="${sparePart.id}/edit">Edit</a>
       				<a class="dropdown-item" href="${sparePart.id}/delete">Delete</a>
     				</div>
-  				 </div>
-				</td>
+  				  </div>
+				 </td>
+				</c:if>
 			  </tr>
 			</c:forEach>  
 			</tbody>

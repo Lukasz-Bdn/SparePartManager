@@ -11,7 +11,7 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-	<c:if test="${not empty sessionScope.user}">
+	<c:if test="${sessionScope.user.enabled}">
 	
 	<%@include file="../jspf/part_menu.jspf"%>
 	

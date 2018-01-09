@@ -11,10 +11,9 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-    <c:if test="${not empty sessionScope.user}">
+    <c:if test="${sessionScope.user.enabled}">
 	<%@include file="../jspf/part_menu.jspf"%>
 	
-
 		<h3>List of all shipments to global location:</h3>
 		  <table class="table table-dark table-hover text-center">
     		<thead>
