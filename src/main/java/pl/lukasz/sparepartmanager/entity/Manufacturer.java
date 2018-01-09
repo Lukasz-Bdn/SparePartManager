@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -20,9 +21,11 @@ public class Manufacturer {
 	private int id;
 	@NotNull
 	@NotEmpty
+	@Size(min=5, max=55)
 	private String name;
 	@NotNull
 	@NotEmpty
+	@Size(min=5, max=200)
 	private String returnAddress;
 	private String additionalInfo;
 	@OneToMany(mappedBy="manufacturer", cascade=CascadeType.MERGE, fetch=FetchType.EAGER)

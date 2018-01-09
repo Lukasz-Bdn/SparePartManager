@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -18,6 +19,9 @@ public class SparePart {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	@NotNull
+	@NotEmpty
+	@Size(min=4, max=80)
 	private String name;
 	@NotNull
 	@ManyToOne
@@ -28,6 +32,7 @@ public class SparePart {
 	private String partNumber;
 	@NotNull
 	@NotEmpty
+	@Size(min=4, max=80)
 	private String serialNumber;
 	@NotNull
 	@ManyToOne

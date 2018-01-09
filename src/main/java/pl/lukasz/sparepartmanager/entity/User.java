@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.mindrot.jbcrypt.BCrypt;
@@ -20,9 +21,11 @@ public class User {
 	private int id;
 	@NotNull
 	@NotEmpty
+	@Size(min=5, max=25)
 	private String username;
 	@NotNull
 	@NotEmpty
+	@Size(min=5, max=25)
 	private String password;
 	@NotNull
 	@NotEmpty
