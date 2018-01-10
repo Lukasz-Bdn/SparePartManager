@@ -12,18 +12,20 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-    <c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
-		<h3>Add new location:</h3>
-		<form:form method="post" modelAttribute="manufacturer">
+		<c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
+		
+		<h3>Add new part to part catallog:</h3>
+		<form:form method="post" modelAttribute="partCatalog">
 		<div class="form-group">Name: <form:input path="name" cssClass="form-control"/>
 		<form:errors path="name" /></div>
-		<div class="form-group">Return address: <form:input path="returnAddress" cssClass="form-control"/>
-		<form:errors path="returnAddress" /></div>
-		<div class="form-group">Additional info: <form:input path="additionalInfo" cssClass="form-control"/>
-		<form:errors path="additionalInfo" /><br /></div>
-		<input type="submit" class="btn btn-primary" value="Create new manufacturer">
+		<div class="form-group">Manufacturer: <form:select type="text" path="manufacturer" cssClass="form-control">
+		  <form:options items="${availableManufacturers}" itemValue="id" itemLabel="name" />
+		</form:select> <form:errors path="manufacturer"/> </div>
+		<div class="form-group">Part number: <form:input path="partNumber" cssClass="form-control"/>
+		<form:errors path="partNumber" /></div>
+		<input type="submit" class="btn btn-primary" value="Create new part in catalog">
 		</form:form><br /> 
-	</c:if>
+		</c:if>
 	</div>
 	<%@include file="../jspf/foot_config.jspf"%>
 </body>

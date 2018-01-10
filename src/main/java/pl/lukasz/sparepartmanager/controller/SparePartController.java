@@ -21,11 +21,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.lukasz.sparepartmanager.bean.SessionManager;
 import pl.lukasz.sparepartmanager.entity.Location;
 import pl.lukasz.sparepartmanager.entity.Manufacturer;
+import pl.lukasz.sparepartmanager.entity.PartCatalog;
 import pl.lukasz.sparepartmanager.entity.Shipment;
 import pl.lukasz.sparepartmanager.entity.SparePart;
 import pl.lukasz.sparepartmanager.entity.User;
 import pl.lukasz.sparepartmanager.repository.LocationRepository;
 import pl.lukasz.sparepartmanager.repository.ManufacturerRepository;
+import pl.lukasz.sparepartmanager.repository.PartCatalogRepository;
 import pl.lukasz.sparepartmanager.repository.ShipmentRepository;
 import pl.lukasz.sparepartmanager.repository.SparePartRepository;
 import pl.lukasz.sparepartmanager.utility.LocationFilter;
@@ -41,6 +43,9 @@ public class SparePartController {
 	private LocationRepository locationRepo;
 	@Autowired
 	private ShipmentRepository shipmentRepo;
+	@Autowired
+	private PartCatalogRepository partCatalogRepo;
+
 
 	
 	@GetMapping("/all")
@@ -380,4 +385,10 @@ public class SparePartController {
 	public List<Location> localLocations() {
 		return locationRepo.findAllByIsGlobal(false);
 	}
+	
+	@ModelAttribute("availablePartCatalogs")
+	public List<PartCatalog> availablePartCatalogs() {
+		return this.partCatalogRepo.findAll();
+	}
+
 }

@@ -11,56 +11,46 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-    <c:if test="${sessionScope.user.enabled}">
-	<%@include file="../jspf/part_menu.jspf"%>
-	
 
-		<h3>List of all spare parts removed from remote systems:</h3>
+		<h3>Catalog of available spare parts:</h3>
 		
 		<label for="myInput">Search the table:</label>
 		<input type="text" id="myInput" onkeyup="searchTable()" 
 			placeholder="Type item to be found..." title="Type in searched phrase">
-		
 		
 		  <table class="table table-dark table-hover text-center">
     		<thead>
       		  <tr>
         	    <th onclick="sortTable(0)">Name</th>
         		<th onclick="sortTable(1)">Manufacturer</th>
-        		<th onclick="sortTable(2)">Part number</th>
-        		<th onclick="sortTable(3)">Serial number</th>
-        		<th onclick="sortTable(4)">Location</th>
-        		<th onclick="sortTable(5)">Status</th>
-        		<th onclick="sortTable(6)">Storage/system location</th>
+        		<th onclick="sortTable(2)">Part Number</th>
+        		<th>Actions</th>
       		  </tr>
     		</thead>
     		<tbody id="myTable">
-		<c:forEach items="${spareParts}" var="sparePart">
+		<c:forEach items="${availablePartCatalogs}" var="partCatalog">
 			  <tr>
-				<td><c:out value="${sparePart.partCatalog.name}"/></td>
-				<td><c:out value="${sparePart.partCatalog.manufacturer.name}"/></td>
-				<td><c:out value="${sparePart.partCatalog.partNumber}"/></td>
-				<td><c:out value="${sparePart.serialNumber}"/></td>
-				<td><c:out value="${sparePart.currentLocation.name}"/></td>
-				<td><c:out value="${sparePart.currentStatus}"/></td>
-				<td><c:out value="${sparePart.currentStorageLocation}"/></td>
+				<td><c:out value="${partCatalog.name}"/></td>
+				<td><c:out value="${partCatalog.manufacturer.name}"/></td>
+				<td><c:out value="${partCatalog.partNumber}"/></td>
+				    
+				<c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
 				<td>
 				  <div class="dropdown">
     				<button type="button" class="btn btn-primary dropdown-toggle btn-secondary" data-toggle="dropdown">
       				Actions</button>
     				<div class="dropdown-menu">
-      				<a class="dropdown-item" href="${sparePart.id}/tolocal">
-      					Return to local stock</a>
-      				<a class="dropdown-item" href="${sparePart.id}/toglobal">
-      					Ship to global stock</a>
+      				<a class="dropdown-item" href="${partCatalog.id}/edit">Edit</a>
+      				<a class="dropdown-item" href="${partCatalog.id}/delete">Delete</a>
     				</div>
   				 </div>
 				</td>
+				</c:if>
 			  </tr>
 			</c:forEach>  
 			</tbody>
 		  </table>
-	  </c:if>
+		  
 	</div>
 <%@include file="../jspf/foot_config.jspf"%>
 </body>
