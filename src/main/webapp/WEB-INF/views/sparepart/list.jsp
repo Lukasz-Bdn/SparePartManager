@@ -16,8 +16,11 @@
 	
 
 		<h3>List of all spare parts:</h3>
+		
+		<label for="myInput">Search the table:</label>
 		<input type="text" id="myInput" onkeyup="searchTable()" 
-			placeholder="Search the table.." title="Type in searched phrase">
+			placeholder="Type item to be found..." title="Type in searched phrase">
+			
 		  <table class="table table-dark table-hover text-center">
     		<thead>
       		  <tr>

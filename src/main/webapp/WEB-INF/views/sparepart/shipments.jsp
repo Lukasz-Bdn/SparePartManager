@@ -17,6 +17,11 @@
 	
 
 		<h3>List of all shipments to remote locations:</h3>
+		
+		<label for="myInput">Search the table:</label>
+		<input type="text" id="myInput" onkeyup="searchTable()" 
+			placeholder="Type item to be found..." title="Type in searched phrase">
+		
 		  <table class="table table-dark table-hover text-center">
     		<thead>
       		  <tr>
@@ -32,7 +37,7 @@
         		<th>Tracking info</th>
       		  </tr>
     		</thead>
-    		<tbody>
+    		<tbody id="myTable">
 		<c:forEach items="${shipmentsToLocation}" var="shipment">
 			  <tr>
 				<td><c:out value="${shipment.id}"/></td>
