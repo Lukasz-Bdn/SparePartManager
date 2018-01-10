@@ -21,7 +21,7 @@
 		<form:errors path="returnAddress" /></div>
 		<div class="form-group">Additional info: <form:input path="additionalInfo" cssClass="form-control"/>
 		<form:errors path="additionalInfo" /><br /></div>
-		<input type="submit" class="btn btn-primary">
+		<input type="submit" class="btn btn-primary" value="Create new manufacturer">
 		</form:form><br /> 
 	</c:if>
 	</div>

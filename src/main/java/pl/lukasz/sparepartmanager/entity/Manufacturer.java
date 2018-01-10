@@ -21,7 +21,7 @@ public class Manufacturer {
 	private int id;
 	@NotNull
 	@NotEmpty
-	@Size(min=5, max=55)
+	@Size(min=3, max=55)
 	private String name;
 	@NotNull
 	@NotEmpty
@@ -29,24 +29,17 @@ public class Manufacturer {
 	private String returnAddress;
 	private String additionalInfo;
 	@OneToMany(mappedBy="manufacturer", cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
-	private List<SparePart> spareParts;
+	private List<PartCatalog> partCatalog;
 	
 	public Manufacturer() {
 		super();
 	}
 
-	public Manufacturer(String name, String returnAddress, String additionalInfo, List<SparePart> spareParts) {
-		super();
-		this.name = name;
-		this.returnAddress = returnAddress;
-		this.additionalInfo = additionalInfo;
-		this.spareParts = spareParts;
-	}
 
 	@Override
 	public String toString() {
-		return "Manufacturer [id=" + id + ", name=" + name + ", returnAddress=" + returnAddress + ", spareParts="
-				+ spareParts + "]";
+		return "Manufacturer [id=" + id + ", name=" + name + ", returnAddress=" + returnAddress + ", partCatalog="
+				+ partCatalog + "]";
 	}
 
 	public int getId() {
@@ -73,13 +66,15 @@ public class Manufacturer {
 		this.returnAddress = returnAddress;
 	}
 
-	public List<SparePart> getSpareParts() {
-		return spareParts;
+	public List<PartCatalog> getPartCatalog() {
+		return partCatalog;
 	}
 
-	public void setSpareParts(List<SparePart> spareParts) {
-		this.spareParts = spareParts;
+
+	public void setPartCatalog(List<PartCatalog> partCatalog) {
+		this.partCatalog = partCatalog;
 	}
+
 
 	public String getAdditionalInfo() {
 		return additionalInfo;

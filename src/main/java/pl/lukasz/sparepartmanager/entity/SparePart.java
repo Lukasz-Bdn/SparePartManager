@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -22,17 +23,6 @@ public class SparePart {
 	@NotNull
 	@NotEmpty
 	@Size(min=4, max=80)
-	private String name;
-	@NotNull
-	@ManyToOne
-	@JoinColumn(name="manufacturer_id")
-	private Manufacturer manufacturer;
-	@NotNull
-	@NotEmpty
-	private String partNumber;
-	@NotNull
-	@NotEmpty
-	@Size(min=4, max=80)
 	private String serialNumber;
 	@NotNull
 	@ManyToOne
@@ -41,21 +31,12 @@ public class SparePart {
 	private String currentStatus = "Available";
 	private String currentStorageLocation; //i.e. shelf, box etc.
 	
+	@ManyToOne
+	@JoinColumn(name="partCatalog_id")
+	private PartCatalog partCatalog;
+	
 	public SparePart() {
 		super();
-	}
-
-	public SparePart(String name, Manufacturer manufacturer, String partNumber, 
-						String serialNumber, Location currentLocation,
-			String currentStatus, String currentStorageLocation) {
-		super();
-		this.name = name;
-		this.manufacturer = manufacturer;
-		this.partNumber = partNumber;
-		this.serialNumber = serialNumber;
-		this.currentLocation = currentLocation;
-		this.currentStatus = currentStatus;
-		this.currentStorageLocation = currentStorageLocation;
 	}
 	
 	public static List<SparePart> selectStatus(List<SparePart> loadedParts, String status) {
@@ -74,22 +55,6 @@ public class SparePart {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPartNumber() {
-		return partNumber;
-	}
-
-	public void setPartNumber(String partNumber) {
-		this.partNumber = partNumber;
 	}
 
 	public String getSerialNumber() {
@@ -124,11 +89,4 @@ public class SparePart {
 		this.currentStorageLocation = currentStorageLocation;
 	}
 
-	public Manufacturer getManufacturer() {
-		return manufacturer;
-	}
-
-	public void setManufacturer(Manufacturer manufacturer) {
-		this.manufacturer = manufacturer;
-	}
 }
