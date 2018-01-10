@@ -33,6 +33,7 @@
         		<th>Shipped</th>
         		<th>Arrived</th>
         		<th>Tracking info</th>
+        		<th></th>
       		  </tr>
     		</thead>
     		<tbody id="myTable">
@@ -48,6 +49,7 @@
 				<td><c:out value="${shipment.simpleShippedDate}"/></td>
 				<td><c:out value="${shipment.simpleArrivedDate}"/></td>
 				<td><c:out value="${shipment.trackingInfo}"/></td>
+				<td></td>
 			  </tr>
 			</c:forEach>  
 			</tbody>

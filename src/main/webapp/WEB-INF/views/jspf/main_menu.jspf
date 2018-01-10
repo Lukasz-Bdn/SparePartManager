@@ -8,7 +8,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+    <ul class="navbar-nav nav-justified">
   <c:if test="${not empty sessionScope.user}">
     <c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
       <li class="nav-item">
