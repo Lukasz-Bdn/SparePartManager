@@ -53,8 +53,19 @@
       <li class="nav-item">
         <a class="btn btn-primary" href="${pageContext.request.contextPath}/logout">Logout</a>
       </li>
-  </c:if>
     </ul>
+  </c:if>
+  <c:if test="${empty sessionScope.user}">
+    <ul class="navbar-nav mr-auto">  
+       <li class="nav-item">
+        <a class="btn btn-primary" href="${pageContext.request.contextPath}/login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-primary" href="${pageContext.request.contextPath}/register">Register</a>
+      </li>
+    </ul>
+   </c:if>
+   </ul>
   </div>
 </nav>
 <br/>

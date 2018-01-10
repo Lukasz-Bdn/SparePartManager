@@ -37,7 +37,6 @@
 		<form:errors path="password" /></div>
 		<input type="submit" class="btn btn-primary" value="Register new user">
 		</form:form><br /> 
-		${user}
 		</div>
 	</div>
 	<%@include file="../jspf/foot_config.jspf"%>
