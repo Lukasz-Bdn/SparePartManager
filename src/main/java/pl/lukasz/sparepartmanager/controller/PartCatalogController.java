@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pl.lukasz.sparepartmanager.entity.Manufacturer;
 import pl.lukasz.sparepartmanager.entity.PartCatalog;
+import pl.lukasz.sparepartmanager.repository.ManufacturerRepository;
 import pl.lukasz.sparepartmanager.repository.PartCatalogRepository;
 
 @Controller
@@ -22,6 +24,8 @@ import pl.lukasz.sparepartmanager.repository.PartCatalogRepository;
 public class PartCatalogController {
 	@Autowired
 	private PartCatalogRepository partCatalogRepo;
+	@Autowired
+	private ManufacturerRepository manufacturerRepo;
 	
 	@GetMapping("/all")
 	public String all(Model m) {
@@ -75,4 +79,10 @@ public class PartCatalogController {
 	public List<PartCatalog> availablePartCatalogs() {
 		return this.partCatalogRepo.findAll();
 	}
+	
+	@ModelAttribute("availableManufacturers")
+	public List<Manufacturer> availableManufacturers() {
+		return manufacturerRepo.findAll();
+	}
+
 }
