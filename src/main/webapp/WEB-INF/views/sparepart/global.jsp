@@ -37,9 +37,9 @@
     		<tbody id="myTable">
 		<c:forEach items="${spareParts}" var="sparePart">
 			  <tr>
-				<td><c:out value="${sparePart.name}"/></td>
-				<td><c:out value="${sparePart.manufacturer.name}"/></td>
-				<td><c:out value="${sparePart.partNumber}"/></td>
+				<td><c:out value="${sparePart.partCatalog.name}"/></td>
+				<td><c:out value="${sparePart.partCatalog.manufacturer.name}"/></td>
+				<td><c:out value="${sparePart.partCatalog.partNumber}"/></td>
 				<td><c:out value="${sparePart.serialNumber}"/></td>
 				<td><c:out value="${sparePart.currentLocation.name}"/></td>
 				<td><c:out value="${sparePart.currentStatus}"/></td>

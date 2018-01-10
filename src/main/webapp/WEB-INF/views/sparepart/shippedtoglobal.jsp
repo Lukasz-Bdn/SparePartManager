@@ -41,8 +41,8 @@
 				<td><c:out value="${shipment.id}"/></td>
 				<td><c:out value="${shipment.origin.name}"/></td>
 				<td><c:out value="${shipment.destination.name}"/></td>
-				<td><c:out value="${shipment.sparePart.name}"/></td>
-				<td><c:out value="${shipment.sparePart.partNumber}"/></td>
+				<td><c:out value="${shipment.sparePart.partCatalog.name}"/></td>
+				<td><c:out value="${shipment.sparePart.partCatalog.partNumber}"/></td>
 				<td><c:out value="${shipment.sparePart.serialNumber}"/></td>
 				<td><c:out value="${shipment.sparePart.currentStatus}"/></td>
 				<td><c:out value="${shipment.simpleShippedDate}"/></td>
