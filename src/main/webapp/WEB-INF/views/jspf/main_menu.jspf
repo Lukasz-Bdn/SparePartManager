@@ -14,21 +14,34 @@
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/user/all">Users</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/location/all">Locations</a>
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Locations
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item " href="${pageContext.request.contextPath}/location/all">
+            Show locations</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/location/addform">
+            Add new location</a>
+        </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/location/addform">Add new location</a>
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        Manufacturers
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/manufacturer/all">
+            Show manufacturers</a>
+          <a class="dropdown-item" href="${pageContext.request.contextPath}/manufacturer/addform">
+            Add new manufacturer</a>
+        </div>
       </li>
-       <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/manufacturer/all">Manufacturers</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/manufacturer/addform">Add new manufacturer</a>
-      </li>
+      
       </c:if>
       <li class="nav-item">
-        <a class="nav-link"href="${pageContext.request.contextPath}/sparepart/all">Spare parts</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/sparepart/all">Spare parts</a>
       </li>
     <c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
       <li class="nav-item">

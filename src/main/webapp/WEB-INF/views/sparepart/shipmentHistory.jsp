@@ -23,17 +23,17 @@
 		  <table class="table table-dark table-hover text-center">
     		<thead>
       		  <tr>
-        	    <th>Id</th>
-        		<th>Origin</th>
-        		<th>Destination</th>
-        		<th>Part</th>
-        		<th>Part number</th>
-        		<th>Serial number</th>
-        		<th>Status</th>
-        		<th>Shipped</th>
-        		<th>Arrived</th>
-        		<th>Tracking info</th>
-        		<th></th>
+        	    <th onclick="sortTable(0)">Id</th>
+        		<th onclick="sortTable(1)">Origin</th>
+        		<th onclick="sortTable(2)">Destination</th>
+        		<th onclick="sortTable(3)">Part</th>
+        		<th onclick="sortTable(4)">Part number</th>
+        		<th onclick="sortTable(5)">Serial number</th>
+        		<th onclick="sortTable(6)">Status</th>
+        		<th onclick="sortTable(7)">Shipped</th>
+        		<th onclick="sortTable(8)">Arrived</th>
+        		<th onclick="sortTable(9)">Tracking info</th>
+        		<th onclick="sortTable(10)"></th>
       		  </tr>
     		</thead>
     		<tbody id="myTable">

@@ -13,17 +13,22 @@
 	<div class="container">
 
 		<h3>List of all locations:</h3>
+		
+		<label for="myInput">Search the table:</label>
+		<input type="text" id="myInput" onkeyup="searchTable()" 
+			placeholder="Type item to be found..." title="Type in searched phrase">
+		
 		  <table class="table table-dark table-hover text-center">
     		<thead>
       		  <tr>
-        	    <th>Name</th>
-        		<th>Description</th>
-        		<th>Address</th>
-        		<th>Global</th>
+        	    <th onclick="sortTable(0)">Name</th>
+        		<th onclick="sortTable(1)">Description</th>
+        		<th onclick="sortTable(2)">Address</th>
+        		<th onclick="sortTable(3)">Global</th>
         		<th>Actions</th>
       		  </tr>
     		</thead>
-    		<tbody>
+    		<tbody id="myTable">
 		<c:forEach items="${availableLocations}" var="location">
 			  <tr>
 				<td><c:out value="${location.name}"/></td>

@@ -13,17 +13,22 @@
 	<div class="container">
       <c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
 		<h3>List of all manufacturers:</h3>
+		
+		<label for="myInput">Search the table:</label>
+		<input type="text" id="myInput" onkeyup="searchTable()" 
+			placeholder="Type item to be found..." title="Type in searched phrase">
+		
 		  <table class="table table-dark table-hover text-center">
     		<thead>
       		  <tr>
-        	    <th>Username</th>
-        		<th>Email</th>
-        		<th>Enabled</th>
-        		<th>Role</th>
-        		<th>Location</th>
+        	    <th onclick="sortTable(0)">Username</th>
+        		<th onclick="sortTable(1)">Email</th>
+        		<th onclick="sortTable(2)">Enabled</th>
+        		<th onclick="sortTable(3)">Role</th>
+        		<th onclick="sortTable(4)">Location</th>
       		  </tr>
     		</thead>
-    		<tbody>
+    		<tbody id="myTable">
 		<c:forEach items="${userList}" var="user">
 			  <tr>
 				<td><c:out value="${user.username}"/></td>

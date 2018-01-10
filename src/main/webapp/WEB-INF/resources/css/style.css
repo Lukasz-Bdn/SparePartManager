@@ -36,3 +36,7 @@ body {
   line-height: 15px; /* Vertically center the text there */
   background-color: #f5f5f5;
 }
+
+th {
+    cursor: pointer;
+}

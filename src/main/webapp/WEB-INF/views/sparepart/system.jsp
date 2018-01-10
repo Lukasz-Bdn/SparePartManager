@@ -23,13 +23,13 @@
 		  <table class="table table-dark table-hover text-center">
     		<thead>
       		  <tr>
-        	    <th>Name</th>
-        		<th>Manufacturer</th>
-        		<th>Part number</th>
-        		<th>Serial number</th>
-        		<th>Location</th>
-        		<th>Status</th>
-        		<th>Storage/system location</th>
+        	    <th onclick="sortTable(0)">Name</th>
+        		<th onclick="sortTable(1)">Manufacturer</th>
+        		<th onclick="sortTable(2)">Part number</th>
+        		<th onclick="sortTable(3)">Serial number</th>
+        		<th onclick="sortTable(4)">Location</th>
+        		<th onclick="sortTable(5)">Status</th>
+        		<th onclick="sortTable(6)">Storage/system location</th>
       		  </tr>
     		</thead>
     		<tbody id="myTable">

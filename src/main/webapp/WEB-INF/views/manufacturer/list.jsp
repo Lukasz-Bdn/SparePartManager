@@ -13,15 +13,20 @@
 	<div class="container">
 
 		<h3>List of all manufacturers:</h3>
+		
+		<label for="myInput">Search the table:</label>
+		<input type="text" id="myInput" onkeyup="searchTable()" 
+			placeholder="Type item to be found..." title="Type in searched phrase">
+		
 		  <table class="table table-dark table-hover text-center">
     		<thead>
       		  <tr>
-        	    <th>Name</th>
-        		<th>Return Address</th>
-        		<th>Additional info</th>
+        	    <th onclick="sortTable(0)">Name</th>
+        		<th onclick="sortTable(1)">Return Address</th>
+        		<th onclick="sortTable(2)">Additional info</th>
       		  </tr>
     		</thead>
-    		<tbody>
+    		<tbody id="myTable">
 		<c:forEach items="${availableManufacturers}" var="manufacturer">
 			  <tr>
 				<td><c:out value="${manufacturer.name}"/></td>
