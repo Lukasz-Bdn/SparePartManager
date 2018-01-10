@@ -1,4 +1,14 @@
-<script src="${pageContext.request.contextPath}/resources/js/jquery-slim.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/popper.min.js" ></script>
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<footer class="footer bg-dark">
+	<div class="container">
+		<span class="text-muted">Copyright: Lukasz Budyn (2018), 
+		Contact: lukasz-budyn@wp.pl, lukaszbudyn.pl</span>
+	</div>
+</footer>
+
+<script
+	src="${pageContext.request.contextPath}/resources/js/jquery-slim.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/popper.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/app.js"></script>

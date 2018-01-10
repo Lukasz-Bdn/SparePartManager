@@ -8,7 +8,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav nav-justified">
+    <ul class="navbar-nav nav-justified mr-auto">
   <c:if test="${not empty sessionScope.user}">
     <c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
       <li class="nav-item">
@@ -21,7 +21,7 @@
         <a class="nav-link" href="${pageContext.request.contextPath}/location/addform">Add new location</a>
       </li>
        <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/manufacturer/all">Manufacturer</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/manufacturer/all">Manufacturers</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath}/manufacturer/addform">Add new manufacturer</a>
@@ -35,8 +35,10 @@
         <a class="nav-link" href="${pageContext.request.contextPath}/sparepart/addform">Add new spare part</a>
       </li>
     </c:if>
+    </ul>
+    <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link btn btn-primary" href="${pageContext.request.contextPath}/logout">Logout</a>
+        <a class="btn btn-primary" href="${pageContext.request.contextPath}/logout">Logout</a>
       </li>
   </c:if>
     </ul>
