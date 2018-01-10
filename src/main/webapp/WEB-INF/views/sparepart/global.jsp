@@ -16,7 +16,7 @@
 	
 	<%@include file="../jspf/part_menu.jspf"%>
 	
-		<h3>List of all spare parts:</h3>
+		<h3>List of all spare parts available in global locations:</h3>
 		
 		<label for="myInput">Search the table:</label>
 		<input type="text" id="myInput" onkeyup="searchTable()" 
