@@ -16,13 +16,11 @@
     <c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
 		<h3>Add new spare part:</h3>
 		<form:form method="post" modelAttribute="sparePart">
-		<div class="form-group">Name: <form:input path="name" cssClass="form-control"/>
-		<form:errors path="name" /></div>
-		<div class="form-group">Manufacturer: <form:select type="text" path="manufacturer" cssClass="form-control">
-		  <form:options items="${availableManufacturers}" itemValue="id" itemLabel="name" />
-		</form:select> <form:errors path="manufacturer"/> </div>
-		<div class="form-group">Part number: <form:input path="partNumber" cssClass="form-control"/>
-		<form:errors path="partNumber" /></div>
+
+		<div class="form-group">Part from Catalog: <form:select type="text" path="partCatalog" cssClass="form-control">
+		  <form:options items="${availablePartCatalogs}" itemValue="id" itemLabel="itemDescription" />
+		</form:select> <form:errors path="partCatalog"/> </div>
+
 		<div class="form-group">Serial number: <form:input path="serialNumber" cssClass="form-control"/>
 		<form:errors path="serialNumber" /></div>
 		<div class="form-group">Location (new items can be added only to global locations): 

@@ -22,6 +22,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 import pl.lukasz.sparepartmanager.converter.LocationConverter;
 import pl.lukasz.sparepartmanager.converter.ManufacturerConverter;
+import pl.lukasz.sparepartmanager.converter.PartCatalogConverter;
 
 @Configuration
 @ComponentScan(basePackages = { "pl.lukasz.sparepartmanager.controller",
@@ -74,6 +75,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addConverter(locationConverter());
 		registry.addConverter(manufacturerConverter());
+		registry.addConverter(partCatalogConverter());
 	}
 
 	@Bean
@@ -85,4 +87,10 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	public LocationConverter locationConverter() {
 		return new LocationConverter();
 	}
+	
+	@Bean
+	public PartCatalogConverter partCatalogConverter() {
+		return new PartCatalogConverter();
+	}
+
 }

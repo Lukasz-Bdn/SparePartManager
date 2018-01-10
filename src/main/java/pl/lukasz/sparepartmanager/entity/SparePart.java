@@ -89,4 +89,12 @@ public class SparePart {
 		this.currentStorageLocation = currentStorageLocation;
 	}
 
+	public PartCatalog getPartCatalog() {
+		return partCatalog;
+	}
+
+	public void setPartCatalog(PartCatalog partCatalog) {
+		this.partCatalog = partCatalog;
+	}
+	
 }

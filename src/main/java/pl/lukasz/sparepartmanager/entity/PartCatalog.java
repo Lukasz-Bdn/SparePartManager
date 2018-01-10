@@ -63,4 +63,8 @@ public class PartCatalog {
 	public void setManufacturer(Manufacturer manufacturer) {
 		this.manufacturer = manufacturer;
 	}
+	
+	public String getItemDescription() {
+		return this.manufacturer.getName() + " " + this.getName() + " " + this.getPartNumber();
+	}
 }
