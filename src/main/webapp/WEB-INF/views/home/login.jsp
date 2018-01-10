@@ -13,8 +13,6 @@
 <body>
 	<%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-		<h1>Spring Security Custom Login Form (Annotation)</h1>
-
 		<h3>Login:</h3>
 		<form:form method="post" modelAttribute="loginData">
 		<div class="form-group">Username: <form:input path="username" cssClass="form-control"/>

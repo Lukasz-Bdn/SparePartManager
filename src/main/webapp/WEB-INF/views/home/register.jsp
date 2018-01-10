@@ -13,7 +13,6 @@
 <body>
 	<%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-		<h1>Spring Security Custom Login Form (Annotation)</h1>
 
 		<div id="login-box">
 
@@ -26,7 +25,6 @@
 				<div class="msg">${msg}</div>
 			</c:if>
 
-		<h3>Register new user:</h3>
 		<form:form method="post" modelAttribute="user">
 		<div class="form-group">Username: <form:input path="username" cssClass="form-control"/>
 		<form:errors path="username" /></div>
@@ -37,6 +35,12 @@
 		<form:errors path="password" /></div>
 		<input type="submit" class="btn btn-primary" value="Register new user">
 		</form:form><br /> 
+		</div>
+		<div>
+			<h4>New accounts need to be activated by administrator, please use contact details
+			 below to notify administrator that you created new account. Include your
+			  location in the email. Please be aware it may take up to 48
+			  hours to activate new account (normally less than 24 hours).</h4>
 		</div>
 	</div>
 	<%@include file="../jspf/foot_config.jspf"%>

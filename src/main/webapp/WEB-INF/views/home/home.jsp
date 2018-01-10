@@ -22,7 +22,6 @@
 	<c:if test="${not empty sessionScope.user}">
 	<h1>Welcome to spare part manager software <b>${sessionScope.user.username}</b></h1>
 	<h3><a href="${pageContext.request.contextPath}/logout" class="btn btn-primary">Logout</a></h3>
-	
 	</c:if>
 	</div>
 <%@include file="../jspf/foot_config.jspf"%>
