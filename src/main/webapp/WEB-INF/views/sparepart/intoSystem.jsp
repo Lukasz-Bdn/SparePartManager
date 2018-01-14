@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
-<%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@include file="../jspf/includes.jspf"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,7 +11,6 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-    <c:if test="${not empty sessionScope.user}">
 
 		<h3 class="text-center">Confirm that the following item is inserted into system:</h3>
 		  <table class="table table-dark table-hover text-center">
@@ -48,7 +46,6 @@
 		  		<input type="submit" class="btn btn-primary" value="Submit">
 			</form:form>
 
-	  </c:if>
 	</div>
 <%@include file="../jspf/foot_config.jspf"%>
 </body>

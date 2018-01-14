@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
-<%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@include file="../jspf/includes.jspf"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,8 +11,7 @@
 <body>
 <%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
-      <c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
-
+	  <c:if test="${empty msg}">
 		<h3 class="text-center">Are you sure you want to delete the following spare part:</h3>
 		  <table class="table table-dark table-hover text-center">
     		<thead>
@@ -44,8 +42,9 @@
 			<input type="button" value="No" onclick="history.back()" 
 						class="btn btn-primary btn-danger btn-lg">
 			</form:form>
+			</c:if>
+			<h2><c:out value="${msg}"></c:out></h2>
 		  </div>
-	  </c:if>
 	</div>
 <%@include file="../jspf/foot_config.jspf"%>
 </body>
