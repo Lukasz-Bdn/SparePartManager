@@ -1,77 +1,76 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
-<%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page session="true" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@include file="../jspf/includes.jspf"%>
+<%@ page session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-  <a class="navbar-brand" href="${pageContext.request.contextPath}">Spare Part Manager</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav nav-justified mr-auto">
-  <c:if test="${not empty sessionScope.user}">
-    <c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
-      <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/user/all">Users</a>
-      </li>
-      
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-        Locations
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item " href="${pageContext.request.contextPath}/location/all">
-            Show locations</a>
-          <a class="dropdown-item" href="${pageContext.request.contextPath}/location/addform">
-            Add new location</a>
-        </div>
-      </li>
-      
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-        Manufacturers
-        </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="${pageContext.request.contextPath}/manufacturer/all">
-            Show manufacturers</a>
-          <a class="dropdown-item" href="${pageContext.request.contextPath}/manufacturer/addform">
-            Add new manufacturer</a>
-        </div>
-      </li>
-      
-      </c:if>
-      <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/sparepart/all">Spare parts</a>
-      </li>
-    <c:if test="${sessionScope.user.userRole eq 'ROLE_ADMIN'}">
-      <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/sparepart/addform">Add new spare part</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/partcatalog/all">Show part catalog</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="${pageContext.request.contextPath}/partcatalog/addform">Create part in catalog</a>
-      </li>
-    </c:if>
-    </ul>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="btn btn-primary" href="${pageContext.request.contextPath}/logout">Logout</a>
-      </li>
-    </ul>
-  </c:if>
-  <c:if test="${empty sessionScope.user}">
-    <ul class="navbar-nav mr-auto">  
-       <li class="nav-item">
-        <a class="btn btn-primary" href="${pageContext.request.contextPath}/login">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="btn btn-primary" href="${pageContext.request.contextPath}/register">Register</a>
-      </li>
-    </ul>
-   </c:if>
-   </ul>
-  </div>
+<a class="navbar-brand" href="${pageContext.request.contextPath}">Spare
+	Part Manager</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse"
+	data-target="#navbarNav" aria-controls="navbarNav"
+	aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNav">
+	<ul class="navbar-nav nav-justified mr-auto">
+		<sec:authorize access="hasRole('ADMIN')">
+			<li class="nav-item"><a class="nav-link"
+				href="${pageContext.request.contextPath}/user/all">Users</a></li>
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbardrop"
+				data-toggle="dropdown"> Locations </a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item "
+						href="${pageContext.request.contextPath}/location/all"> Show
+						locations</a> <a class="dropdown-item"
+						href="${pageContext.request.contextPath}/location/addform">
+						Add new location</a>
+				</div></li>
+
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbardrop"
+				data-toggle="dropdown"> Manufacturers </a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item"
+						href="${pageContext.request.contextPath}/manufacturer/all">
+						Show manufacturers</a> <a class="dropdown-item"
+						href="${pageContext.request.contextPath}/manufacturer/addform">
+						Add new manufacturer</a>
+				</div></li>
+			<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbardrop"
+				data-toggle="dropdown"> Part Catalog </a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item"
+						href="${pageContext.request.contextPath}/partcatalog/all">
+						Show part catalog</a> <a class="dropdown-item"
+						href="${pageContext.request.contextPath}/partcatalog/addform">
+						Create part in catalog</a>
+				</div></li>
+			<li class="nav-item"><a class="nav-link"
+				href="${pageContext.request.contextPath}/sparepart/addform">Add
+					new spare part</a></li>
+		</sec:authorize>
+		<li class="nav-item"><a class="nav-link"
+			href="${pageContext.request.contextPath}/sparepart/all">Spare
+				parts</a></li>
+
+	</ul>
+	<ul class="navbar-nav ml-auto">
+		<sec:authorize access="isAuthenticated()">
+			<li class="nav-item"><a class="btn btn-primary"
+				href="${pageContext.request.contextPath}/logout">Logout</a></li>
+		</sec:authorize>
+	</ul>
+	<ul class="navbar-nav mr-auto">
+		<sec:authorize access="isAnonymous()">
+			<li class="nav-item"><a class="btn btn-primary"
+				href="${pageContext.request.contextPath}/login">Login</a></li>
+			<li class="nav-item"><a class="btn btn-primary"
+				href="${pageContext.request.contextPath}/register">Register</a></li>
+		</sec:authorize>
+	</ul>
+	</ul>
+</div>
 </nav>
-<br/>
+<br />

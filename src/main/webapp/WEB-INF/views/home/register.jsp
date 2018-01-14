@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
-<%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@include file="../jspf/includes.jspf"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,7 +10,7 @@
 <link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
-	<%@include file="../jspf/main_menu.jspf"%>
+<%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
 
 		<div id="login-box">
@@ -35,6 +34,7 @@
 		<form:errors path="password" /></div>
 		<input type="submit" class="btn btn-primary" value="Register new user">
 		</form:form><br /> 
+		<h3><c:out value="${msg}"></c:out></h3>
 		</div>
 		<div>
 			<h4>New accounts need to be activated by administrator, please use contact details
@@ -43,6 +43,6 @@
 			  hours to activate new account (normally less than 24 hours).</h4>
 		</div>
 	</div>
-	<%@include file="../jspf/foot_config.jspf"%>
+<%@include file="../jspf/foot_config.jspf"%>
 </body>
 </html>
