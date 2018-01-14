@@ -129,20 +129,24 @@ public class SparePartController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@GetMapping("/{id}/shiptolocation")
-	public String shipToLocationGet(@PathVariable int id, Model m) {
-		SparePart sparePart = this.sparePartRepo.findOne(id);
+	@GetMapping("/{partId}/shiptolocation")
+	public String shipToLocationGet(@PathVariable int partId, Model m) {
+		SparePart sparePart = this.sparePartRepo.findOne(partId);
 		m.addAttribute("sparePart", sparePart);
 		m.addAttribute("shipment", new Shipment());
 		return "sparepart/ship";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PostMapping("/{id}/shiptolocation")
+	@PostMapping("/{partId}/shiptolocation")
 	@Transactional
-	public String shipToLocationPost(@PathVariable int id, @ModelAttribute Shipment shipment, 
-									BindingResult bindingResult) {
-		SparePart sparePart = sparePartRepo.findOne(id);
+	public String shipToLocationPost(@PathVariable int partId, @ModelAttribute Shipment shipment,
+									BindingResult bindingResult, Model m) {
+		SparePart sparePart = sparePartRepo.findOne(partId);
+		if(bindingResult.hasErrors()) {
+			m.addAttribute("sparePart", sparePart);
+			return "sparepart/ship";
+		}
 		sparePart.setCurrentStatus("Shipped to location");
 		shipment.setOrigin(sparePart.getCurrentLocation());
 		shipment.setSparePart(sparePart);
@@ -172,7 +176,8 @@ public class SparePartController {
 	@PostMapping("{id}/shipments/cancel")
 	@Transactional
 	public String shippedToLocationCancelPost(@PathVariable int id, Model m) {
-		SparePart sparePart = sparePartRepo.findOne(id);
+		Shipment shipment = this.shipmentRepo.findOne(id);
+		SparePart sparePart = shipment.getSparePart();
 		sparePart.setCurrentStatus("Available");
 		this.shipmentRepo.delete(id);
 		return "redirect:/sparepart/shippedtolocation";
@@ -283,12 +288,6 @@ public class SparePartController {
 	
 	@GetMapping("removed")
 	public String readyToShip(Model m) {
-//		List<SparePart> spareParts = sparePartRepo.findByCurrentStatus("Removed from system");
-//		spareParts = LocationFilter.
-//				filterSparePart(getLoggedUser(),
-//						spareParts);
-//		m.addAttribute("spareParts", spareParts);
-//		return "sparepart/removed";
 		
 		List<SparePart> spareParts = new ArrayList<>();
 		if (getLoggedUser().getUserRole().equals("ROLE_ADMIN")) {
@@ -312,19 +311,19 @@ public class SparePartController {
 		return "redirect:/sparepart/location";
 	}
 	
-	@GetMapping("/{id}/toglobal")
-	public String shipToGlobalGet(@PathVariable int id, Model m) {
-		SparePart sparePart = this.sparePartRepo.findOne(id);
+	@GetMapping("/{partId}/toglobal")
+	public String shipToGlobalGet(@PathVariable int partId, Model m) {
+		SparePart sparePart = this.sparePartRepo.findOne(partId);
 		m.addAttribute("sparePart", sparePart);
 		m.addAttribute("shipment", new Shipment());
 		return "sparepart/toglobal";
 	}
 	
-	@PostMapping("/{id}/toglobal")
+	@PostMapping("/{partId}/toglobal")
 	@Transactional
-	public String shipToGlobalPost(@PathVariable int id, @ModelAttribute Shipment shipment, 
+	public String shipToGlobalPost(@PathVariable int partId, @ModelAttribute Shipment shipment, 
 									BindingResult bindingResult) {
-		SparePart sparePart = sparePartRepo.findOne(id);
+		SparePart sparePart = sparePartRepo.findOne(partId);
 		sparePart.setCurrentStatus("Shipped to global");
 		shipment.setOrigin(sparePart.getCurrentLocation());
 		shipment.setSparePart(sparePart);
