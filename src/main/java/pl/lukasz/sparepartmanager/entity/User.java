@@ -1,6 +1,6 @@
 package pl.lukasz.sparepartmanager.entity;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -23,6 +22,7 @@ public class User {
 	@NotNull
 	@NotEmpty
 	@Size(min=5, max=25)
+	@Column(unique = true)
 	private String username;
 	@NotNull
 	@NotEmpty
@@ -30,6 +30,7 @@ public class User {
 	private String password;
 	@NotNull
 	@NotEmpty
+	@Column(unique = true)
 	private String email;
 	private boolean enabled;
 	private String userRole;
