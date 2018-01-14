@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import pl.lukasz.sparepartmanager.bean.LoginData;
-import pl.lukasz.sparepartmanager.bean.SessionManager;
 import pl.lukasz.sparepartmanager.entity.User;
 import pl.lukasz.sparepartmanager.repository.UserRepository;
 
@@ -27,22 +25,13 @@ public class HomeController {
 	}
 	
 	@GetMapping("login")
-	public String loginGet(Model m) {
-		m.addAttribute("loginData", new LoginData());
+	public String loginGet() {
 		return "home/login";
 	}
 	
-	@PostMapping("login")
-	public String loginPost(@ModelAttribute LoginData loginData, BindingResult bindingResult
-							, Model m) {
-		User user = this.userRepo.findOneByUsername(loginData.getUsername());
-		if(user!=null && user.isPasswordCorrent(loginData.getPassword())) {
-			HttpSession session = SessionManager.session();
-			session.setAttribute("user", user);
-			return "redirect:/";
-		}
-		m.addAttribute("msg", "Please use valid login data");
-		return "home/login";
+	@PostMapping("login") 
+	public String loginPost() {
+		return "redirect:/";
 	}
 	
 	@GetMapping("register")
@@ -52,21 +41,25 @@ public class HomeController {
 	}
 	
 	@PostMapping("register")
-	@Transactional
-	public String registerPost(@ModelAttribute User user, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) {
-			return "redirect:register";
-		} else {
-			user.setUserRole("ROLE_USER");
-			this.userRepo.save(user);
-			return "redirect:/login";
-		}
+	public String registerPost(@ModelAttribute User user, BindingResult bindingResult, Model m) {
+			if(bindingResult.hasErrors()) {
+				return "redirect:register";
+			} else {
+				user.setUserRole("ROLE_USER");
+				try {
+					this.userRepo.save(user);
+				} catch (Exception e) {
+					m.addAttribute("msg", "User with this email and/or username is already present."
+							+ " Please select different email/username or login using existing "
+							+ "credentials");
+					return "home/register";
+				}
+				return "redirect:/login";
+			}
 	}
-	
-	@GetMapping("logout")
-	public String logoutGet() {
-		HttpSession session = SessionManager.session();
-		session.invalidate();
-		return "redirect:/";
+
+	@GetMapping("403")
+	public String accessDenied() {
+		return "errors/accessDenied";
 	}
 }

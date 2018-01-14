@@ -22,55 +22,60 @@ import pl.lukasz.sparepartmanager.repository.LocationRepository;
 public class LocationController {
 	@Autowired
 	private LocationRepository locationRepo;
-	
+
 	@GetMapping("/all")
 	public String all(Model m) {
 		return "location/list";
 	}
-	
+
 	@GetMapping("/addform")
 	public String addformGet(Model m) {
 		m.addAttribute("location", new Location());
 		return "location/addLocation";
 	}
-	
+
 	@PostMapping("/addform")
-	public String addformPost(@Valid @ModelAttribute Location location, 
-								BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) {
+	public String addformPost(@Valid @ModelAttribute Location location, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
 			return "location/addLocation";
 		}
 		this.locationRepo.save(location);
 		return "redirect:/location/all";
 	}
-	
+
 	@GetMapping("/{id}/edit")
 	public String editGet(@PathVariable int id, Model m) {
 		Location location = this.locationRepo.findOne(id);
 		m.addAttribute("location", location);
 		return "location/addLocation";
 	}
-	
+
 	@PostMapping("/{id}/edit")
 	public String editPost(@ModelAttribute Location location) {
 		this.locationRepo.save(location);
 		return "redirect:/location/all";
 	}
-	
+
 	@GetMapping("/{id}/delete")
 	public String deleteGet(@PathVariable int id, Model m) {
 		Location location = this.locationRepo.findOne(id);
 		m.addAttribute("location", location);
 		return "location/confirm";
 	}
-	
+
 	@PostMapping("/{id}/delete")
-	public String deletePost(@PathVariable int id) {
-		this.locationRepo.delete(id);
-		return "redirect:/location/all";
+	public String deletePost(@PathVariable int id, Model m) {
+		try {
+			this.locationRepo.delete(id);
+			return "redirect:/location/all";
+		} catch (Exception e) {
+			m.addAttribute("msg", "Sorry you cannot delete location if there are " 
+		+ "resources assigned to it (including shipment history).");
+			return "location/confirm";
+		}
 	}
-	
-	//Model attributes
+
+	// Model attributes
 	@ModelAttribute("availableLocations")
 	public List<Location> availableLocations() {
 		return locationRepo.findAll();

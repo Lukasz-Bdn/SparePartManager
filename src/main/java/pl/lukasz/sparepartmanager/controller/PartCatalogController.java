@@ -69,9 +69,15 @@ public class PartCatalogController {
 	}
 	
 	@PostMapping("/{id}/delete")
-	public String deletePost(@PathVariable int id) {
-		this.partCatalogRepo.delete(id);
-		return "redirect:/partcatalog/all";
+	public String deletePost(@PathVariable int id, Model m) {
+		try {
+			this.partCatalogRepo.delete(id);
+			return "redirect:/partcatalog/all";
+		} catch (Exception e) {
+			m.addAttribute("msg", "Sorry you cannot remove item from catalog "
+					+ "if some parts are still present (including shipment history).");
+			return "partcatalog/confirm";
+		}
 	}
 	
 	//Model attributes
@@ -86,3 +92,4 @@ public class PartCatalogController {
 	}
 
 }
+

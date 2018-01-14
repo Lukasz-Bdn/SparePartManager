@@ -1,5 +1,6 @@
 package pl.lukasz.sparepartmanager.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +33,7 @@ import pl.lukasz.sparepartmanager.repository.ManufacturerRepository;
 import pl.lukasz.sparepartmanager.repository.PartCatalogRepository;
 import pl.lukasz.sparepartmanager.repository.ShipmentRepository;
 import pl.lukasz.sparepartmanager.repository.SparePartRepository;
+import pl.lukasz.sparepartmanager.repository.UserRepository;
 import pl.lukasz.sparepartmanager.utility.LocationFilter;
 
 @Controller
@@ -45,26 +49,30 @@ public class SparePartController {
 	private ShipmentRepository shipmentRepo;
 	@Autowired
 	private PartCatalogRepository partCatalogRepo;
-
-
+	@Autowired
+	private UserRepository userRepo;
 	
 	@GetMapping("/all")
 	public String all(Model m) {
-		List<SparePart> availableSpareParts = this.sparePartRepo.findAll();
-		HttpSession session = SessionManager.session();
-		availableSpareParts = LocationFilter.
-				filterSparePart((User) session.getAttribute("user"),
-						availableSpareParts);
+		List<SparePart> availableSpareParts = new ArrayList<>();
+		if(getLoggedUser().getUserRole().equals("ROLE_ADMIN")) {
+			availableSpareParts = this.sparePartRepo.findAll();
+		} else {
+			availableSpareParts = this.sparePartRepo.findByCurrentLocationId(getLoggedUser()
+					.getLocation().getId());
+		}
 		m.addAttribute("availableSpareParts", availableSpareParts);
 		return "sparepart/list";
 	}
-	
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/addform")
 	public String addformGet(Model m) {
 		m.addAttribute("sparePart", new SparePart());
 		return "sparepart/addSparePart";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/addform")
 	public String addformPost(@Valid @ModelAttribute SparePart sparePart, 
 								BindingResult bindingResult) {
@@ -75,6 +83,7 @@ public class SparePartController {
 		return "redirect:/sparepart/all";
 	}
 	
+	
 	@GetMapping("/{id}/edit")
 	public String editGet(@PathVariable int id, Model m) {
 		SparePart sparePart = this.sparePartRepo.findOne(id);
@@ -82,12 +91,14 @@ public class SparePartController {
 		return "sparepart/addSparePart";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/{id}/edit")
 	public String editPost(@ModelAttribute SparePart sparePart) {
 		this.sparePartRepo.save(sparePart);
 		return "redirect:/sparepart/all";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/{id}/delete")
 	public String deleteGet(@PathVariable int id, Model m) {
 		SparePart sparePart = this.sparePartRepo.findOne(id);
@@ -95,12 +106,20 @@ public class SparePartController {
 		return "sparepart/confirm";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/{id}/delete")
-	public String deletePost(@PathVariable int id) {
-		this.sparePartRepo.delete(id);
-		return "redirect:/sparepart/all";
+	public String deletePost(@PathVariable int id, Model m) {
+		try {
+			this.sparePartRepo.delete(id);
+			return "redirect:/sparepart/all";
+		} catch (Exception e) {
+			m.addAttribute("msg", "Sorry this spare part cannot be deleted. Only unused "
+					+ " (never shipped) parts can be deleted from database");
+			return "sparepart/confirm";
+		}
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("global")
 	public String globalGet(Model m) {
 		List<SparePart> loadedParts = this.sparePartRepo.findAllByCurrentLocationIsGlobal(true);
@@ -109,6 +128,7 @@ public class SparePartController {
 		return "sparepart/global";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/{id}/shiptolocation")
 	public String shipToLocationGet(@PathVariable int id, Model m) {
 		SparePart sparePart = this.sparePartRepo.findOne(id);
@@ -117,6 +137,7 @@ public class SparePartController {
 		return "sparepart/ship";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/{id}/shiptolocation")
 	@Transactional
 	public String shipToLocationPost(@PathVariable int id, @ModelAttribute Shipment shipment, 
@@ -134,9 +155,8 @@ public class SparePartController {
 	public String shippedToLocation(Model m) {
 		List<Shipment> shipmentsToLocation = shipmentRepo
 				.findAllByIsArchivedAndOriginIsGlobal(false, true);
-		HttpSession session = SessionManager.session();
 		shipmentsToLocation = LocationFilter.
-				filterShipments((User) session.getAttribute("user"),
+				filterShipments(getLoggedUser(),
 								shipmentsToLocation);
 		m.addAttribute("shipmentsToLocation", shipmentsToLocation);
 		return "sparepart/shipments";
@@ -179,7 +199,8 @@ public class SparePartController {
 	
 	@GetMapping("{id}/shipments/arrivedToLocation")
 	public String arrivedToLocationGet(@PathVariable int id, Model m) {
-		SparePart sparePart = this.sparePartRepo.findOne(id);
+		Shipment shipment = this.shipmentRepo.findOne(id);
+		SparePart sparePart = shipment.getSparePart();
 		m.addAttribute("sparePart", sparePart);
 		return "sparepart/arrivedToLocation";
 	}
@@ -200,26 +221,32 @@ public class SparePartController {
 	
 	@GetMapping("location")
 	public String location(Model m) {
-		List<SparePart> spareParts = sparePartRepo.findAllByCurrentLocationIsGlobal(false);
-		spareParts = SparePart.selectStatus(spareParts, "Available in remote location");
-		HttpSession session = SessionManager.session();
-		spareParts = LocationFilter.
-				filterSparePart((User) session.getAttribute("user"),
-						spareParts);
+		List<SparePart> spareParts = new ArrayList<>();
+		if (getLoggedUser().getUserRole().equals("ROLE_ADMIN")) {
+			spareParts = sparePartRepo.findAllByCurrentLocationIsGlobal(false);
+			spareParts = SparePart.selectStatus(spareParts, "Available in remote location");
+		} else {
+			spareParts = this.sparePartRepo.findByCurrentLocationId(getLoggedUser()
+					.getLocation().getId());
+			spareParts = SparePart.selectStatus(spareParts, "Available in remote location");
+		}
 		m.addAttribute("spareParts", spareParts);
 		return "sparepart/location";
 	}
 	
 	@GetMapping("system")
 	public String systemGet(Model m) {
-		List<SparePart> spareParts = sparePartRepo.findAllByCurrentLocationIsGlobal(false);
-		spareParts = SparePart.selectStatus(spareParts, "In system");
-		HttpSession session = SessionManager.session();
-		spareParts = LocationFilter.
-				filterSparePart((User) session.getAttribute("user"),
-						spareParts);
+		List<SparePart> spareParts = new ArrayList<>();
+		if (getLoggedUser().getUserRole().equals("ROLE_ADMIN")) {
+			spareParts = sparePartRepo.findAllByCurrentLocationIsGlobal(false);
+			spareParts = SparePart.selectStatus(spareParts, "In system");
+		} else {
+			spareParts = this.sparePartRepo.findByCurrentLocationId(getLoggedUser()
+					.getLocation().getId());
+			spareParts = SparePart.selectStatus(spareParts, "In system");
+		}
 		m.addAttribute("spareParts", spareParts);
-		return "/sparepart/system";
+		return "sparepart/system";
 	}
 	
 	@GetMapping("{id}/insert")
@@ -256,13 +283,25 @@ public class SparePartController {
 	
 	@GetMapping("removed")
 	public String readyToShip(Model m) {
-		List<SparePart> spareParts = sparePartRepo.findByCurrentStatus("Removed from system");
-		HttpSession session = SessionManager.session();
-		spareParts = LocationFilter.
-				filterSparePart((User) session.getAttribute("user"),
-						spareParts);
+//		List<SparePart> spareParts = sparePartRepo.findByCurrentStatus("Removed from system");
+//		spareParts = LocationFilter.
+//				filterSparePart(getLoggedUser(),
+//						spareParts);
+//		m.addAttribute("spareParts", spareParts);
+//		return "sparepart/removed";
+		
+		List<SparePart> spareParts = new ArrayList<>();
+		if (getLoggedUser().getUserRole().equals("ROLE_ADMIN")) {
+			spareParts = sparePartRepo.findAllByCurrentLocationIsGlobal(false);
+			spareParts = SparePart.selectStatus(spareParts, "Removed from system");
+		} else {
+			spareParts = this.sparePartRepo.findByCurrentLocationId(getLoggedUser()
+					.getLocation().getId());
+			spareParts = SparePart.selectStatus(spareParts, "Removed from system");
+		}
 		m.addAttribute("spareParts", spareParts);
 		return "sparepart/removed";
+
 	}
 	
 	@GetMapping("{id}/tolocal")
@@ -298,9 +337,8 @@ public class SparePartController {
 	public String shippedToGlobal(Model m) {
 		List<Shipment> shipmentsToGlobal = shipmentRepo
 				.findAllByIsArchivedAndOriginIsGlobal(false, false);
-		HttpSession session = SessionManager.session();
 		shipmentsToGlobal = LocationFilter.
-				filterShipments((User) session.getAttribute("user"),
+				filterShipments(getLoggedUser(),
 						shipmentsToGlobal);
 		m.addAttribute("shipmentsToGlobal", shipmentsToGlobal);
 		return "sparepart/shippedtoglobal";
@@ -326,15 +364,16 @@ public class SparePartController {
 		return "redirect:/sparepart/shippedtoglobal";
 	}
 	
-		
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("{id}/shipments/arrivedToGlobal")
 	public String arrivedToGlobalGet(@PathVariable int id, Model m) {
-		SparePart sparePart = this.sparePartRepo.findOne(id);
+		Shipment shipment = this.shipmentRepo.findOne(id);
+		SparePart sparePart = shipment.getSparePart();
 		m.addAttribute("sparePart", sparePart);
 		return "sparepart/arrivedToGlobal";
 	}
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("{id}/shipments/arrivedToGlobal")
 	@Transactional
 	public String arrivedToGlobalPost(@PathVariable int id, @ModelAttribute SparePart sparePartForm) {
@@ -352,13 +391,21 @@ public class SparePartController {
 	@GetMapping("shipmenthistory")
 	public String shipmentHistory(Model m) {
 		List<Shipment> availableShipments = this.shipmentRepo.findAllOrderByDateShipped();
-		HttpSession session = SessionManager.session();
 		availableShipments = LocationFilter.
-				filterShipments((User) session.getAttribute("user"),
+				filterShipments(getLoggedUser(),
 						availableShipments);
 		m.addAttribute("availableShipments", availableShipments);
 		return "sparepart/shipmentHistory";
 	}
+	
+	//Additional methods
+	private User getLoggedUser() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = ((org.springframework.security.core.userdetails.User) principal)
+				.getUsername();
+		return this.userRepo.findOneByUsername(username);
+	}
+
 	
 	//Model attributes
 	@ModelAttribute("availableSpareParts")

@@ -65,9 +65,15 @@ public class ManufacturerController {
 	}
 	
 	@PostMapping("/{id}/delete")
-	public String deletePost(@PathVariable int id) {
-		this.manufacturerRepo.delete(id);
-		return "redirect:/manufacturer/all";
+	public String deletePost(@PathVariable int id, Model m) {
+		try {
+			this.manufacturerRepo.delete(id);
+			return "redirect:/manufacturer/all";
+		} catch (Exception e) {
+			m.addAttribute("msg", "Sorry you cannot delete manufacturers if his parts " 
+					+ "are still present (including shipment history).");
+			return "manufacturer/confirm";
+		}
 	}
 	
 	//Model attributes
