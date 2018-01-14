@@ -22,12 +22,15 @@ Main functionalities and features:
 
 Technologies used:
 1. Java EE.
-2. Maven.
-3. Git.
-4. Trello.
-5. Spring Core.
-6. Spring Data.
-7. Spring Security.
-8. Hibernate.
-9. JSP with JSTL and Spring Security Tag Library.
-10. HTML, CSS, Java Script, Bootstrap.
+2. MySQL.
+3. Spring Core.
+4. Spring MVC.
+5. Spring Data.
+6. Spring Security.
+7. Hibernate.
+8. Maven.
+9. Git.
+10. Trello.
+11. Eclipse.
+12. JSP with JSTL and Spring Security Tag Library.
+13. HTML, CSS, Java Script, Bootstrap.
