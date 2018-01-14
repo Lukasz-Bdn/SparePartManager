@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
-	<%@include file="../jspf/main_menu.jspf"%>
+<%@include file="../jspf/main_menu.jspf"%>
 	<div class="container">
 		<h3>Login:</h3>
 		<form:form method="post" modelAttribute="loginData">
@@ -24,6 +24,6 @@
 		</div>
 
 	</div>
-	<%@include file="../jspf/foot_config.jspf"%>
+<%@include file="../jspf/foot_config.jspf"%>
 </body>
 </html>
