@@ -30,7 +30,6 @@ Technologies used:
 7. Hibernate.
 8. Maven.
 9. Git.
-10. Trello.
-11. Eclipse (Spring Tool Suite).
-12. JSP with JSTL and Spring Security Tag Library.
-13. HTML, CSS, Java Script, Bootstrap.
+10. Eclipse (Spring Tool Suite).
+11. JSP with JSTL and Spring Security Tag Library.
+12. HTML, CSS, Java Script, Bootstrap.
