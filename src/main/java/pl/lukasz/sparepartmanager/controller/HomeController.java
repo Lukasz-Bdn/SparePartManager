@@ -2,6 +2,7 @@ package pl.lukasz.sparepartmanager.controller;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,7 @@ public class HomeController {
 	}
 	
 	@PostMapping("register")
-	public String registerPost(@ModelAttribute User user, BindingResult bindingResult, Model m) {
+	public String registerPost(@Valid @ModelAttribute User user, BindingResult bindingResult, Model m) {
 			if(bindingResult.hasErrors()) {
 				return "redirect:register";
 			} else {

@@ -26,9 +26,9 @@
 		</form:select> <form:errors path="currentLocation"/> </div>
 		<div class="form-group">Current storage location: <form:input path="currentStorageLocation" 
 		cssClass="form-control"/>
+		<form:errors path="currentStorageLocation" /><br /></div>
 		<br/>
 		<input type="submit" class="btn btn-primary">
-		<form:errors path="currentStorageLocation" /><br /></div>
 		
 		</form:form><br /> 
 	</div>
